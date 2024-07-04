@@ -1,0 +1,125 @@
+<div class="w-full flex flex-col gap-0">
+    <div class="h-24 w-full bg-blue-600 text-white flex flex-row justify-between items-center text-2xl text-medium px-10">
+        <div class="flex justify-start text-3xl font-bold items-center">
+            <p>Manage Panel Details</p>
+        </div>
+        <div class="flex flex-row justify-end gap-10 items-center">
+            <fa-icon class="fa-2x text-white fa-light" [icon]="faHouse"></fa-icon>
+            <fa-icon class="fa-2x text-white fa-light" [icon]="faArrowLeft"></fa-icon>
+        </div>
+    </div>
+    <form class="flex flex-col gap-5 items-center" [formGroup]="panelForm" (ngSubmit)="onSubmit()">
+        <div class="flex flex-row justify-center items-center w-full px-8 py-5 gap-3">
+            <div class="flex flex-col gap-3 w-1/2">
+                <label class="flex flex-col gap-3 font-medium text-xl" for="userName">
+                    <p>Panel Name</p>
+                    
+                    <input class="border-2 border-black rounded-md px-4 py-2 text-regular" id="name" formControlName="name" type="text" minlength="3" required />
+                </label>
+                <label class="flex flex-col gap-3 font-medium text-xl" for="skillSet">
+                    <p>Skillset</p>
+                    <input formControlName="skillSet" class="border-2 border-black rounded-md px-4 py-2 text-regular" id="skillSet" type="text" required />
+                </label>
+                <label class="flex flex-col gap-3 font-medium text-xl" for="email">
+                    <p>Email Id</p>
+                    <input formControlName="emailId" class="border-2 border-black rounded-md px-4 py-2 text-regular" id="email" type="email" required />
+                </label>
+                <label class="flex flex-col gap-3 font-medium text-xl" for="isCertified">
+                    <p>ICP Certified?</p>
+                    <select formControlName="ICPCertified" class="border-2 border-black rounded-md px-4 py-2 text-regular" id="isCertified">
+                        <option value="Yes">
+                            Yes
+                        </option>
+                        <option value="No">
+                            No
+                        </option>
+                        
+                    </select>
+                </label>
+                <label class="flex flex-col gap-3 font-medium text-xl" for="city">
+                    <p>Panel City</p>
+                    <input formControlName="city" class="border-2 border-black rounded-md px-4 py-2 text-regular" id="city" type="text" required />
+                </label>
+                <label class="flex flex-col gap-3 font-medium text-xl" for="accountName">
+                    <p>Panel Account Name</p>
+                    <input formControlName="accountName" class="border-2 border-black rounded-md px-4 py-2 text-regular" id="accountName" type="text" required />
+                </label>
+                <label class="flex flex-col gap-3 font-medium text-xl" for="subPractice">
+                    <p>Panel Sub Practice</p>
+                    <select formControlName="subPractice" class="border-2 border-black rounded-md px-4 py-2 text-regular" id="subPractice">
+                        <option value="subPractice1">
+                            subPractice1
+                        </option>
+                        <option value="subPractice2">
+                            subPractice2
+                        </option>
+                    </select>
+                </label>
+            </div>
+            <div class="flex flex-col gap-3 w-1/2">
+                <label class="flex flex-col gap-3 font-medium text-xl" for="band">
+                    <p>Panel Band</p>
+                    <input formControlName="band" class="border-2 border-black rounded-md px-4 py-2 text-regular" id="band" type="text" required/>
+                </label>
+                <label class="flex flex-col gap-3 font-medium text-xl" for="empId">
+                    <p>Panel Emp Id</p>
+                    <input formControlName="empId" class="border-2 border-black rounded-md px-4 py-2 text-regular" id="empId" type="text" required/>
+                </label>
+                <label class="flex flex-col gap-3 font-medium text-xl" for="sector">
+                    <p>Panel Sector</p>
+                    <select formControlName="sector" class="border-2 border-black rounded-md px-4 py-2 text-regular" id="sector">
+                        <option value="sector 1">
+                            Sector 1
+                        </option>
+                        <option value="sector 2">
+                            Sector 2
+                        </option>
+                    </select>
+                </label>
+                <label class="flex flex-col gap-3 font-medium text-xl" for="location">
+                    <p>Panel Location</p>
+                    <select formControlName="location" class="border-2 border-black rounded-md px-4 py-2 text-regular" id="location">
+                        <option value="location 1">
+                            Location 1
+                        </option>
+                        <option value="location 2">
+                            Location 2
+                        </option>
+                    </select>
+                </label>
+                <label class="flex flex-col gap-3 font-medium text-xl" for="contact">
+                    <p>Panel Contact Number</p>
+                    <input formControlName="contactNumber" class="border-2 border-black rounded-md px-4 py-2 text-regular" id="contact" type="tel" required/>
+                </label>
+                <label class="flex flex-col gap-3 font-medium text-xl" for="practice">
+                    <p>Panel Practice</p>
+                    <select formControlName="practice" class="border-2 border-black rounded-md px-4 py-2 text-regular">
+                        <option value="practice 1">
+                            Practice1
+                        </option>
+                        <option value="practice 2">
+                            Practice2
+                        </option>
+                    </select>
+                </label>
+                <label class="flex flex-col gap-3 font-medium text-xl" for="level">
+                    <p>Panel Level</p>
+                    <select formControlName="level" class="border-2 border-black rounded-md px-4 py-2 text-regular">
+                        <option value="level 1">
+                            L1
+                        </option>
+                        <option value="level 2">
+                            L2
+                        </option>
+                    </select>
+                </label>
+            </div>
+        </div>
+        <div>
+            <label for="button">
+                <input class="rounded-md bg-blue-600 border-2 border-black text-white px-10 py-2" id="button" type="submit" placeholder="Submit" />
+            </label>
+        </div>
+        
+    </form>
+</div>

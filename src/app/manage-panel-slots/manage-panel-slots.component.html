@@ -1,0 +1,85 @@
+<div class="w-full flex flex-col gap-0 h-screen">
+    <div class="h-24 w-full bg-blue-600 text-white flex flex-row justify-between items-center text-2xl text-medium px-10">
+        <div class="flex justify-start text-3xl font-bold items-center">
+            <p>Manage Panel Slots</p>
+        </div>
+        <div class="flex flex-row justify-end gap-10 items-center">
+            <fa-icon class="fa-2x text-white fa-light" [icon]="faPlus"></fa-icon>
+            <fa-icon class="fa-2x text-white fa-light" [icon]="faPenToSquare"></fa-icon>
+            <fa-icon class="fa-2x text-white fa-light" [icon]="faHouse"></fa-icon>
+            <fa-icon class="fa-2x text-white fa-light" [icon]="faArrowLeft"></fa-icon>
+        </div>
+    </div>
+    <div class="flex flex-row justify-between px-10 py-5">
+        <div class="flex flex-col gap-3">
+            <p>Selected Panel:</p>
+            <p>Name: Sai Velagala | Band: C1 | Skill Set: Testing</p>
+        </div>
+        <div class="flex flex-col gap-4">
+            <div class="flex flex-row gap-3">
+                <p class="flex justify-center w-fit">
+                    Start Date Filter:
+                </p>
+                <input type="date" class="border-2 border-blue-600 " />
+            </div>
+            <div class="flex flex-row gap-3">
+                <p class="flex justify-center w-fit">
+                    End Date Filter:
+                </p>
+                <input type="date" class="border-2 border-blue-600 " />
+            </div>
+        </div>
+    </div>
+    <div class="flex flex-row text-white bg-blue-600 rounded-md mx-2 relative px-10 py-2">
+        <p class="flex inline-block justify-center align-center w-3/12">
+            Slot Start Date Time
+        </p>
+        <p class="flex justify-center align-center w-3/12">
+            Slot End Date Time
+        </p>
+        <p class="flex justify-center align-center w-1/12">
+            Status
+        </p>
+        <p class="flex justify-center align-center w-2/12">
+            Booked by
+        </p>
+        <p class="flex justify-center align-center w-3/12">
+            Comments
+        </p>
+    </div>
+    <div class="w-full border-2 border-blue-600 relative m-1 h-full">
+        <div *ngFor="let slot of slots" class="flex flex-row py-4 rounded-md mx-2 relative px-10 py-2">
+            <div class="w-3/12 flex justify-center items-center">
+                <input value="slot.start" class="flex inline-block justify-center align-center border-2 border-blue-600" type="datetime-local">
+            </div>
+            <div class="w-3/12 flex justify-center items-center">
+                <input value="slot.end" class="flex inline-block justify-center align-center border-2 border-blue-600" type="datetime-local">
+            </div>
+            <select [(ngModel)]="slot.status" class="flex justify-center align-center w-1/12 border-2 border-blue-600">
+                <option value="booked">
+                    Booked
+                </option>
+                <option value="available">
+                    Available
+                </option>
+                <option value="Cancelled">
+                    Cancelled
+                </option>
+                <option value="consumed">
+                    Consumed
+                </option>
+                <option value="notconsumed">
+                    Not Consumed
+                </option>
+            </select>
+            <p class="flex justify-center align-center w-2/12">
+                {{slot.bookedBy}}
+            </p>
+            <p class="flex justify-center align-center w-3/12">
+                <input type="text" [value]="slot.comments" class="border-2 border-blue-600 w-3/4 px-3" />
+            </p>
+        </div>
+    </div>
+
+
+</div>
