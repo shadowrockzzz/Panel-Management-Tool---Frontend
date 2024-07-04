@@ -10,7 +10,7 @@ import { ManagePanelSlotsComponent } from './manage-panel-slots/manage-panel-slo
 const routes: Routes = [
   {
     path: '',
-    component: PanelViewComponent
+    component: SignInPageComponent
   }
 ];
 
