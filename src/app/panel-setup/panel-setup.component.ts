@@ -1,5 +1,7 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { faArrowLeft, faHouse } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -14,7 +16,7 @@ export class PanelSetupComponent {
   faHouse = faHouse;
   faArrowLeft = faArrowLeft;
 
-  constructor(private fb: FormBuilder){
+  constructor(private fb: FormBuilder, private location: Location, private router: Router){
 
   }
 
@@ -41,6 +43,14 @@ export class PanelSetupComponent {
     console.log("Submission is completed")
     // console.log(e)
     console.log(this.panelForm)
+  }
+
+  goBack(){
+    this.location.back()
+  }
+
+  goToHome(){
+    this.router.navigateByUrl('/dashboard')
   }
 
 }

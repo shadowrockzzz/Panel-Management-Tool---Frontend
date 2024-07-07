@@ -6,8 +6,8 @@
             </div>
             <div class="flex flex-row justify-end gap-10 items-center">
                 <fa-icon class="fa-2x text-white fa-light" [icon]="faArrowDown"></fa-icon>
-                <fa-icon class="fa-2x text-white fa-light" [icon]="faHouse"></fa-icon>
-                <fa-icon class="fa-2x text-white fa-light" [icon]="faArrowLeft"></fa-icon>
+                <fa-icon (click)="goToHome()" class="fa-2x text-white fa-light" [icon]="faHouse"></fa-icon>
+                <fa-icon (click)="goBack()" class="fa-2x text-white fa-light" [icon]="faArrowLeft"></fa-icon>
             </div>
         </div>
         <div class="flex flex-col gap-5 px-5 py-1 pb-3 border-b-4 border-b-blue-600">

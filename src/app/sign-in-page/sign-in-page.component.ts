@@ -35,6 +35,7 @@ export class SignInPageComponent {
         console.log('Login response:', response);
         // this.storage.setItem("panelToken",response.token)
         sessionStorage.setItem("Panel Token",response.token)
+        sessionStorage.setItem("User Name",data.userName)
         this.router.navigateByUrl('/dashboard')
         
 

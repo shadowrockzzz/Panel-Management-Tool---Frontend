@@ -1,4 +1,6 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { faHouse, faArrowLeft, faArrowDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -15,6 +17,10 @@ export class PanelViewComponent {
 
   panelList: {name:String,band :String, accountName: String, skillSet: String}[] = [];
 
+  constructor(private location: Location, private router: Router){
+
+  }
+
   ngOnInit(){
     this.panelList.push({
       name: "Sai Velagala",
@@ -28,6 +34,14 @@ export class PanelViewComponent {
       band:"B3",
       skillSet: "Developing"
     })
+  }
+
+  goBack(){
+    this.location.back()
+  }
+
+  goToHome(){
+    this.router.navigateByUrl('/dashboard')
   }
 
 }

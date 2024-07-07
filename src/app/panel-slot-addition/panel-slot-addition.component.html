@@ -4,14 +4,14 @@
             <p>Add Panel Slots</p>
         </div>
         <div class="flex flex-row justify-end gap-10 items-center">
-            <fa-icon class="fa-2x text-white fa-light" [icon]="faHouse"></fa-icon>
-            <fa-icon class="fa-2x text-white fa-light" [icon]="faArrowLeft"></fa-icon>
+            <fa-icon (click)="goToHome()" class="fa-2x text-white fa-light" [icon]="faHouse"></fa-icon>
+            <fa-icon (click)="goBack()" class="fa-2x text-white fa-light" [icon]="faArrowLeft"></fa-icon>
         </div>
     </div>
     <div class="px-10 py-5">
         <div class="flex items-center justify-start">
             <p class="w-fit inline-block font-medium text-xl">Selected Panel:</p> &nbsp; &nbsp;
-            <p class="w-fit inline-block">Name: name1 |Band: C1 | Skillset: Testing</p>
+            <p class="w-fit inline-block">Name: {{name}} |Band: {{band}} | Skillset: {{skillSet}}</p>
         </div>
         <div class="flex justify-end items-center gap-5">
             <p class="inline-block">Note: Click "Add Slot" button to add more slots ----></p>

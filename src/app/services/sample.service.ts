@@ -14,7 +14,22 @@ export class SampleService {
    }
 
   getPanelData() : Observable<any>{
-    return this.http.get<any>(this.baseURL+"panel")
+
+    let queryParams = new HttpParams();
+
+    // console.log(sessionStorage.getItem("User Name"))
+
+    let value: any = sessionStorage.getItem("User Name")
+    let token: any = sessionStorage.getItem("Panel Token")
+
+    // console.log(value,token)
+
+    queryParams = queryParams.set("userName",value)
+    queryParams = queryParams.set("token",token)
+
+    // console.log(queryParams)
+
+    return this.http.get<any>(this.baseURL+"panel",{params:queryParams})
   }
 
   signIn(data:any):Observable<any>{
@@ -30,5 +45,4 @@ export class SampleService {
     // });
     return this.http.get<any>(this.baseURL+"login",{params: queryParams})
     }
-
 }
