@@ -11,6 +11,7 @@ import { PanelSetupComponent } from './panel-setup/panel-setup.component';
 import { PanelSlotAdditionComponent } from './panel-slot-addition/panel-slot-addition.component';
 import { PanelViewComponent } from './panel-view/panel-view.component';
 import { ManagePanelSlotsComponent } from './manage-panel-slots/manage-panel-slots.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ManagePanelSlotsComponent } from './manage-panel-slots/manage-panel-slo
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -11,6 +11,24 @@ const routes: Routes = [
   {
     path: '',
     component: SignInPageComponent
+  },{
+    path:'dashboard',
+    component:DashboardComponent
+  },{
+    path:'panel',
+    component: PanelSetupComponent
+  },{
+    path:'view',
+    component: PanelViewComponent
+  },{
+    path:'slot',
+    component: PanelSlotAdditionComponent
+  },{
+    path:'manage',
+    component: ManagePanelSlotsComponent
+  },{
+    path:'**',
+    component: SignInPageComponent
   }
 ];
 

@@ -2,19 +2,19 @@
     <p class="text-white text-2xl my-auto relative font-medium flex items-center">Panel Management Appliation</p>
 </div>
 <div class="flex flex-wrap gap-10 py-10 mx-auto my-auto w-full flex justify-center items-center">
-    <div class="w-1/3 h-fit bg-blue-600 flex justify-center items-center flex flex-col gap-2 py-3">
+    <div (click)="navigate('panel')" class="w-1/3 h-fit bg-blue-600 flex justify-center items-center flex flex-col gap-2 py-3">
         <fa-icon class="fa-10x text-white fa-light" [icon]="faPlus"></fa-icon>
         <p class="text-3xl text-white text-medium">Add Panel</p>
     </div>
-    <div class="w-1/3 h-fit bg-blue-600 flex justify-center items-center flex flex-col gap-2 py-3">
+    <div (click)="navigate('manage')" class="w-1/3 h-fit bg-blue-600 flex justify-center items-center flex flex-col gap-2 py-3">
         <fa-icon class="fa-10x text-white fa-light" [icon]="faMagnifyingGlass"></fa-icon>
         <p class="text-3xl text-white text-medium">Manage Panel</p>
     </div>
-    <div class="w-1/3 h-fit bg-blue-600 flex justify-center items-center flex flex-col gap-2 py-3">
+    <div (click)="navigate('slot')" class="w-1/3 h-fit bg-blue-600 flex justify-center items-center flex flex-col gap-2 py-3">
         <fa-icon class="fa-10x text-white fa-light" [icon]="faCalendar"></fa-icon>
         <p class="text-3xl text-white text-medium">Add Panel Slots</p>
     </div>
-    <div class="w-1/3 h-fit bg-blue-600 flex justify-center items-center flex flex-col gap-2 py-3">
+    <div (click)="navigate('view')" class="w-1/3 h-fit bg-blue-600 flex justify-center items-center flex flex-col gap-2 py-3">
         <fa-icon class="fa-10x text-white fa-light" [icon]="faList"></fa-icon>
         <p class="text-3xl text-white text-medium">View and Book Panel Slots</p>
     </div>
