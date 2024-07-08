@@ -57,7 +57,7 @@
             </div>
         </div>
         <div class="border-t-2 border-t-blue-600 h-4/5 w-full">
-            <div *ngFor="let panel of panelList" class="border-b-2 border-b-blue-600 flex flex-row gap-10 justify-between px-10 py-5">
+            <div (click)="navigateToPanelSlots(panel.name)" *ngFor="let panel of panelList" class="border-b-2 border-b-blue-600 flex flex-row gap-10 justify-between px-10 py-5">
                 <p class="w-fit w-1/5 inline-block flex justify-start items-center">
                     {{panel.name}}
                 </p>

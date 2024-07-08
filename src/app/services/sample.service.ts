@@ -13,13 +13,13 @@ export class SampleService {
 
    }
 
-  getPanelData() : Observable<any>{
+  getPanelData( userName: String) : Observable<any>{
 
     let queryParams = new HttpParams();
 
     // console.log(sessionStorage.getItem("User Name"))
 
-    let value: any = sessionStorage.getItem("User Name")
+    let value: any = userName
     let token: any = sessionStorage.getItem("Panel Token")
 
     // console.log(value,token)
@@ -45,4 +45,13 @@ export class SampleService {
     // });
     return this.http.get<any>(this.baseURL+"login",{params: queryParams})
     }
+
+  register(data:any):Observable<any>{
+
+    const headers = new HttpHeaders({
+      'content-Type': 'application/json'
+    })
+
+    return this.http.post<any>(this.baseURL+"register",data, {headers: headers})
+  }
 }

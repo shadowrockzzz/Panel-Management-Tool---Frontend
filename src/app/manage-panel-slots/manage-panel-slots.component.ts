@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faHouse, faArrowLeft, faPenToSquare, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { SampleService } from '../services/sample.service';
 
@@ -19,21 +19,21 @@ export class ManagePanelSlotsComponent {
   band: String = "";
   skillSet: String = "";
 
+  userName: any = sessionStorage.getItem('User Name');
+
   slots: {start: any, end: any, status: String, bookedBy: String, comments: String}[] = [];
 
-  constructor(private location: Location, private router: Router, private service: SampleService){
-    this.service.getPanelData().subscribe((data)=>{
-      try{
-        if(data){
-          this.name = data.userName;
-          this.band = data.band;
-          this.skillSet = data.skillSet;
+  constructor(private location: Location, private router: Router, private service: SampleService, private route: ActivatedRoute){
+    try {
+      this.route.queryParams.subscribe((data)=>{
+        if(data['userName']){
+          this.userName = data['userName']
         }
-      }
-      catch(err){
-        console.error(err)
-      }
-    })
+      })
+    }
+    catch(err){
+      console.error(err)
+    }
   }
 
   ngOnInit(){
@@ -53,6 +53,21 @@ export class ManagePanelSlotsComponent {
       bookedBy: "-",
       comments: ""
 
+    })
+
+    
+
+    this.service.getPanelData(this.userName).subscribe((data)=>{
+      try{
+        if(data){
+          this.name = data.userName;
+          this.band = data.band;
+          this.skillSet = data.skillSet;
+        }
+      }
+      catch(err){
+        console.error(err)
+      }
     })
   }
 

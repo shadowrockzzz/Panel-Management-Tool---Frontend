@@ -17,11 +17,12 @@ export class PanelSlotAdditionComponent implements OnInit {
   name: String = "";
   band: String = "";
   skillSet: String = "";
+  userName: any = sessionStorage.getItem("User Name")
 
   timeSlotArray: { start: string, end: string }[] = [];
 
   constructor(private location: Location, private router: Router, private service: SampleService){
-    this.service.getPanelData().subscribe((data)=>{
+    this.service.getPanelData(this.userName).subscribe((data)=>{
       try{
         if(data){
           this.name = data.userName;

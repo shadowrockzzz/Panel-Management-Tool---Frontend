@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faArrowLeft, faHouse } from '@fortawesome/free-solid-svg-icons';
+import { SampleService } from '../services/sample.service';
 
 @Component({
   selector: 'app-panel-setup',
@@ -16,7 +17,7 @@ export class PanelSetupComponent {
   faHouse = faHouse;
   faArrowLeft = faArrowLeft;
 
-  constructor(private fb: FormBuilder, private location: Location, private router: Router){
+  constructor(private fb: FormBuilder, private location: Location, private router: Router, private service: SampleService){
 
   }
 
@@ -42,7 +43,27 @@ export class PanelSetupComponent {
   onSubmit = ()=>{
     console.log("Submission is completed")
     // console.log(e)
-    console.log(this.panelForm)
+    console.log(this.panelForm.value)
+
+    let blank = false;
+
+    for (let key in this.panelForm.value){
+      if(!this.panelForm.value[key]){
+        blank = true
+        break
+      }
+    }
+
+    try{
+      if(!blank){
+        this.service.register(this.panelForm.value).subscribe((data)=>{
+          console.log(data)
+        })
+      }
+    }
+    catch(err){
+      console.error(err)
+    }
   }
 
   goBack(){

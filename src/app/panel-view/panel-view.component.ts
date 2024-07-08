@@ -23,16 +23,16 @@ export class PanelViewComponent {
 
   ngOnInit(){
     this.panelList.push({
-      name: "Sai Velagala",
-      accountName: "Aviva",
-      band:"B2",
-      skillSet: "Developing, Testing"
+      name: "JohnDoe123",
+      accountName: "ABC Corp",
+      band:"Senior",
+      skillSet: "JavaScript, Node.js, React"
     },
     {
-      name: "Satya",
-      accountName: "Wipro",
-      band:"B3",
-      skillSet: "Developing"
+      name: "John123",
+      accountName: "ABC Corp",
+      band:"Senior",
+      skillSet: "JavaScript,React, Java"
     })
   }
 
@@ -42,6 +42,13 @@ export class PanelViewComponent {
 
   goToHome(){
     this.router.navigateByUrl('/dashboard')
+  }
+
+  navigateToPanelSlots(userName: String){
+    const params = {
+     "userName": userName
+    }
+    this.router.navigate(['/manage'],{queryParams: params})
   }
 
 }
