@@ -41,9 +41,6 @@ export class PanelSetupComponent {
   }
 
   onSubmit = ()=>{
-    console.log("Submission is completed")
-    // console.log(e)
-    console.log(this.panelForm.value)
 
     let blank = false;
 
@@ -58,7 +55,11 @@ export class PanelSetupComponent {
       if(!blank){
         this.service.register(this.panelForm.value).subscribe((data)=>{
           console.log(data)
+          console.log("Data added to the database")
         })
+      }
+      else{
+        console.log("No field should be left blank")
       }
     }
     catch(err){

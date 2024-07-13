@@ -19,7 +19,7 @@ export class PanelSlotAdditionComponent implements OnInit {
   skillSet: String = "";
   userName: any = sessionStorage.getItem("User Name")
 
-  timeSlotArray: { start: string, end: string }[] = [];
+  slots: {start: any, end: any, status: String, bookedBy: String, comments: String, id:any}[] = [];
 
   constructor(private location: Location, private router: Router, private service: SampleService){
     this.service.getPanelData(this.userName).subscribe((data)=>{
@@ -37,32 +37,105 @@ export class PanelSlotAdditionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.timeSlotArray.push({ "start": "2024-07-03T09:00:00", "end": "2024-07-03T17:00:00" });
-    this.timeSlotArray.push({ "start": "2024-07-01T12:00:00", "end": "2024-07-02T14:30:00" });
+    this.service.getPanelData(this.userName).subscribe((data)=>{
+      try{
+        if(data){
+          this.name = data.userName;
+          this.band = data.band;
+          this.skillSet = data.skillSet;
+        }
+      }
+      catch(err){
+        console.error(err)
+      }
+    })  
+    this.getSlots()
+  }
+
+  getSlots(){
+    let userName = sessionStorage.getItem("User Name")
+    if(userName){
+      this.service.getSlotsByPanel(new Date(), userName).subscribe((data)=>{
+        for (let slot in data){
+          this.slots.push({
+            start: this.formatDate(data[slot].start.toString()),
+            end: this.formatDate(data[slot].end.toString()),
+            status: data[slot].status,
+            bookedBy: data[slot].bookedBy,
+            comments: data[slot].comments,
+            id: data[slot]._id
+          })
+        }
+      })
+    }
+  }
+
+  formatDate(dateTimeString: string): string {
+    const date = new Date(dateTimeString);
+    const year = date.getUTCFullYear();
+    const month = `${date.getUTCMonth() + 1}`.padStart(2, '0');
+    const day = `${date.getUTCDate()}`.padStart(2, '0');
+    const hours = `${date.getUTCHours()}`.padStart(2, '0');
+    const minutes = `${date.getUTCMinutes()}`.padStart(2, '0');
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  }
+
+  updateSlots(){
+    for (let slot of this.slots){
+      if(slot.id){
+        this.service.updateSlots(slot).subscribe((data)=>{
+          console.log(data)
+        })
+      }
+      else{
+        let user = sessionStorage.getItem("User Name")
+        if(user){
+          slot.bookedBy = user
+          this.service.addSlot(slot).subscribe((data)=>{
+            console.log(data)
+          })
+        }
+      }
+    }
+
+    this.deleteSlotsWhenSaved()
+  }
+
+  deleteSlotList: string[] = []
+
+  deleteSlotsWhenSaved(){
+    for (let item of this.deleteSlotList){
+      if(item){
+        console.log(item)
+        this.service.deleteSlot(item).subscribe((data)=>{
+          console.log(data)
+        })
+      }
+    }
   }
 
   rangeArray(start: number, end: number): number[] {
     return Array.from({ length: (end - start) }, (_, index) => start + index);
   }
 
-  // Update the start time in the timeSlotArray
   updateStartTime(index: number, event: Event): void {
     const target = event.target as HTMLInputElement;
-    this.timeSlotArray[index].start = target.value;
+    this.slots[index].start = target.value;
   }
 
   // Update the end time in the timeSlotArray
   updateEndTime(index: number, event: Event): void {
     const target = event.target as HTMLInputElement;
-    this.timeSlotArray[index].end = target.value;
+    this.slots[index].end = target.value;
   }
 
   deleteSlot(item:any){
-    this.timeSlotArray.splice(item,1);
+    this.deleteSlotList.push(this.slots[item].id)
+    this.slots.splice(item,1);
   }
 
   slotAddition(){
-    this.timeSlotArray.push({"start":"0000-00-00T00:00:00", "end": "0000-00-00T00:00:00"})
+    this.slots.push({"start":"0000-00-00T00:00:00", "end": "0000-00-00T00:00:00",status: "available", bookedBy: "-", comments: "", id:null})
   }
 
   goBack(){

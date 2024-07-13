@@ -2,6 +2,7 @@ import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { faHouse, faArrowLeft, faArrowDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { SampleService } from '../services/sample.service';
 
 @Component({
   selector: 'app-panel-view',
@@ -15,24 +16,21 @@ export class PanelViewComponent {
   faArrowDown = faArrowDown;
   faChevronRight=faChevronRight;
 
-  panelList: {name:String,band :String, accountName: String, skillSet: String}[] = [];
+  panelList:any = [];
 
-  constructor(private location: Location, private router: Router){
+  constructor(private location: Location, private router: Router, private service: SampleService){
 
   }
 
+
   ngOnInit(){
-    this.panelList.push({
-      name: "JohnDoe123",
-      accountName: "ABC Corp",
-      band:"Senior",
-      skillSet: "JavaScript, Node.js, React"
-    },
-    {
-      name: "John123",
-      accountName: "ABC Corp",
-      band:"Senior",
-      skillSet: "JavaScript,React, Java"
+    this.getAllPanels()
+  }
+
+  getAllPanels(){
+    this.service.getAllPanels().subscribe((data)=>{
+      console.log(data)
+      this.panelList = [...data]
     })
   }
 

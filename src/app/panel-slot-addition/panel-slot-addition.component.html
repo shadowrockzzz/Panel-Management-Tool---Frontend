@@ -11,7 +11,7 @@
     <div class="px-10 py-5">
         <div class="flex items-center justify-start">
             <p class="w-fit inline-block font-medium text-xl">Selected Panel:</p> &nbsp; &nbsp;
-            <p class="w-fit inline-block">Name: {{name}} |Band: {{band}} | Skillset: {{skillSet}}</p>
+            <p class="w-fit inline-block">Name: {{userName}} |Band: {{band}} | Skillset: {{skillSet}}</p>
         </div>
         <div class="flex justify-end items-center gap-5">
             <p class="inline-block">Note: Click "Add Slot" button to add more slots ----></p>
@@ -20,7 +20,7 @@
     </div>
     <div class="flex flex-col px-10 py-5 border-2 border-blue-600 h-3/5 relative scroll">
         <p class="mb-5">Panel Type</p>
-        <div *ngFor="let slot of timeSlotArray; let i = index" class="flex flex-row gap-20">
+        <div *ngFor="let slot of slots; let i = index" class="flex flex-row gap-20">
             <!-- Panel Start Date and Time -->
             <div class="flex flex-row gap-3 items-center">
                 <p class="inline-block">Panel Start Date:</p>
@@ -37,7 +37,7 @@
         </div>
     </div>
     <div class="flex justify-center items-center relative mt-10">
-        <button class="text-white bg-blue-600 rounded-md px-8 py-3">Save Slot</button>
+        <button (click)="updateSlots()" class="text-white bg-blue-600 rounded-md px-8 py-3">Save Slot</button>
     </div>
     
 </div>

@@ -17,8 +17,6 @@ export class SampleService {
 
     let queryParams = new HttpParams();
 
-    // console.log(sessionStorage.getItem("User Name"))
-
     let value: any = userName
     let token: any = sessionStorage.getItem("Panel Token")
 
@@ -54,4 +52,51 @@ export class SampleService {
 
     return this.http.post<any>(this.baseURL+"register",data, {headers: headers})
   }
+
+  getAllSlots(startDate:Date, endDate:Date):Observable<any>{
+
+    const startDateInString = startDate.toString()
+    const endDateInString = endDate.toString()
+
+    let params = new HttpParams();
+
+    params = params.set("startDate",startDateInString)
+    params = params.set("endDate",endDateInString)
+    
+    return this.http.get<any>(this.baseURL+"getslots",{params: params})
+  }
+
+  updateSlots(data:any){
+    console.log(data)
+    return this.http.post<any>(this.baseURL+"updateslots",data)
+  }
+
+  addSlot(data:any){
+    return this.http.post<any>(this.baseURL+"addslot",data)
+  }
+
+  getSlotsByPanel(startDate:Date, userName: String){
+
+    const startDateInString = startDate.toString()
+    let userNameInString = "";
+    if(userName){
+      userNameInString = userName.toString()
+    }
+
+    let params = new HttpParams();
+
+    params = params.set("startDate",startDateInString)
+    params = params.set("userName", userNameInString)
+
+    return this.http.get<any>(this.baseURL+"getslotsbypanel",{params: params})
+  }
+
+  deleteSlot(id:string){
+    return this.http.delete<any>(this.baseURL+"slot/"+id)
+  }
+
+  getAllPanels(){
+    return this.http.get<any>(this.baseURL+"allpanels")
+  }
+
 }
