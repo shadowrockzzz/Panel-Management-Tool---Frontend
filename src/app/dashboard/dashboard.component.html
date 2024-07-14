@@ -1,5 +1,6 @@
-<div class="w-full h-20 py-4 px-2 bg-blue-600">
+<div class="w-full h-20 py-4 px-2 bg-blue-600 flex flex-row justify-between px-10">
     <p class="text-white text-2xl my-auto relative font-medium flex items-center">Panel Management Appliation</p>
+    <fa-icon (click)="logOut()" class="fa-2x text-white fa-light" [icon]="faArrowRightFromBracket"></fa-icon>
 </div>
 <div class="flex flex-wrap gap-10 py-10 mx-auto my-auto w-full flex justify-center items-center">
     <div (click)="navigate('panel')" class="w-1/3 h-fit bg-blue-600 flex justify-center items-center flex flex-col gap-2 py-3">

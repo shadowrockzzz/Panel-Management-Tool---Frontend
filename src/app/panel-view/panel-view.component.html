@@ -5,9 +5,10 @@
                 <p>Panel View</p>
             </div>
             <div class="flex flex-row justify-end gap-10 items-center">
-                <fa-icon class="fa-2x text-white fa-light" [icon]="faArrowDown"></fa-icon>
+                <fa-icon (click)="generateExcel(panelList,'Panel List','panel list')" class="fa-2x text-white fa-light" [icon]="faArrowDown"></fa-icon>
                 <fa-icon (click)="goToHome()" class="fa-2x text-white fa-light" [icon]="faHouse"></fa-icon>
                 <fa-icon (click)="goBack()" class="fa-2x text-white fa-light" [icon]="faArrowLeft"></fa-icon>
+                <fa-icon (click)="logOut()" class="fa-2x text-white fa-light" [icon]="faArrowRightFromBracket"></fa-icon>
             </div>
         </div>
         <div class="flex flex-col gap-5 px-5 py-1 pb-3 border-b-4 border-b-blue-600">
@@ -15,21 +16,22 @@
                 <p class="inline-block pr-40 h-fit my-auto flex">Search Filter by:</p>
                 <div class="flex flex-row h-10">
                     <p class="h-fit my-auto flex">From Date:</p> &nbsp;
-                    <input type="date" class="border-2 border-blue-600 px-4 py-2" >
+                    <input type="date" [(ngModel)]="startDate" class="border-2 border-blue-600 px-4 py-2" >
                 </div>
                 <div class="flex flex-row h-10">
                     <p class="h-fit my-auto">To Date:</p> &nbsp;
-                    <input type="date" class="border-2 border-blue-600 px-4 py-2" >
+                    <input type="date" [(ngModel)]="endDate" class="border-2 border-blue-600 px-4 py-2" >
                 </div>
+                <fa-icon (click)="submitFilter()" class="fa-2x w-1/5 flex justify-end items-center text-blue-600 fa-light" [icon]="faMagnifyingGlass"></fa-icon>
             </div>
             <div class="flex flex-row gap-10">
                 <label for="name" class="gap-3 flex flex-row">
                     <p class="flex justify-center items-center">Name:</p>
-                    <input id="name" type="text" class="border-2 border-blue-600" />
+                    <input id="name" [(ngModel)]="name" type="text" class="border-2 border-blue-600" />
                 </label>
                 <label for="band" class="gap-3 flex flex-row">
                     <p class="flex justify-center items-center">Band:</p>
-                    <select id="band" class="border-2 border-blue-600">
+                    <select [(ngModel)]="band" id="band" class="border-2 border-blue-600">
                         <option value="band 1">
                             Band 1
                         </option>
@@ -40,7 +42,7 @@
                 </label>
                 <label for="accountName" class="gap-3 flex flex-row">
                     <p class="flex justify-center items-center">Account Name:</p>
-                    <select id="accountName" class="border-2 border-blue-600">
+                    <select [(ngModel)]="accountName" id="accountName" class="border-2 border-blue-600">
                         <option value="account name 1">
                             Account Name 1
                         </option>
@@ -51,13 +53,13 @@
                 </label>
                 <label for="skillSet" class="gap-3 flex flex-row">
                     <p class="flex justify-center items-center">Skill Set:</p>
-                    <input id="skillSet" type="text" class="border-2 border-blue-600" />
+                    <input [(ngModel)]="skillSet" id="skillSet" type="text" class="border-2 border-blue-600" />
                 </label>
                 <button class="text-white bg-blue-600 px-5 py-2 rounded-md"> Reset</button>
             </div>
         </div>
         <div class="border-t-2 border-t-blue-600 h-4/5 w-full">
-            <div (click)="navigateToPanelSlots(panel.name)" *ngFor="let panel of panelList" class="border-b-2 border-b-blue-600 flex flex-row gap-10 justify-between px-10 py-5">
+            <div (click)="navigateToPanelSlots(panel.userName)" *ngFor="let panel of panelList" class="border-b-2 border-b-blue-600 flex flex-row gap-10 justify-between px-10 py-5">
                 <p class="w-fit w-1/5 inline-block flex justify-start items-center">
                     {{panel.userName}}
                 </p>

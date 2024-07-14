@@ -99,4 +99,15 @@ export class SampleService {
     return this.http.get<any>(this.baseURL+"allpanels")
   }
 
+  filterPanels(data:any){
+
+    let params = new HttpParams()
+
+    for (let item in data){
+      params = params.set(item,data[item])
+    }
+    console.log("Hello World")
+    return this.http.get<any>(this.baseURL+"filterpanel",{params: params})
+  }
+
 }

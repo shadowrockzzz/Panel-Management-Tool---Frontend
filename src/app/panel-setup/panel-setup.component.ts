@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { faArrowLeft, faHouse } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faArrowRightFromBracket, faHouse } from '@fortawesome/free-solid-svg-icons';
 import { SampleService } from '../services/sample.service';
 
 @Component({
@@ -16,6 +16,7 @@ export class PanelSetupComponent {
 
   faHouse = faHouse;
   faArrowLeft = faArrowLeft;
+  faArrowRightFromBracket = faArrowRightFromBracket;
 
   constructor(private fb: FormBuilder, private location: Location, private router: Router, private service: SampleService){
 
@@ -38,6 +39,13 @@ export class PanelSetupComponent {
       practice: ["practice 1", Validators.required],
       level: ["level 1",Validators.required]
     })
+  }
+
+
+  logOut= ()=>{
+    sessionStorage.removeItem('User Name')
+    sessionStorage.removeItem('Panel Token')
+    this.router.navigateByUrl('/')
   }
 
   onSubmit = ()=>{

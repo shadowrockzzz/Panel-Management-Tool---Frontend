@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { faHouse, faArrowLeft, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faHouse, faArrowLeft, faTrash, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { SampleService } from '../services/sample.service';
 
 @Component({
@@ -14,6 +14,7 @@ export class PanelSlotAdditionComponent implements OnInit {
   faHouse = faHouse;
   faArrowLeft = faArrowLeft;
   faTrash = faTrash;
+  faArrowRightFromBracket = faArrowRightFromBracket;
   name: String = "";
   band: String = "";
   skillSet: String = "";
@@ -34,6 +35,13 @@ export class PanelSlotAdditionComponent implements OnInit {
         console.error(err)
       }
     })
+  }
+
+
+  logOut= ()=>{
+    sessionStorage.removeItem('User Name')
+    sessionStorage.removeItem('Panel Token')
+    this.router.navigateByUrl('/')
   }
 
   ngOnInit(): void {

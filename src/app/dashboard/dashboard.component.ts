@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { faCalendar, faCoffee, faList, faMagnifyingGlass, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightFromBracket, faCalendar, faCoffee, faList, faMagnifyingGlass, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'dashboard',
@@ -12,6 +12,7 @@ export class DashboardComponent {
   faMagnifyingGlass = faMagnifyingGlass;
   faCalendar = faCalendar;
   faList = faList
+  faArrowRightFromBracket = faArrowRightFromBracket;
 
   constructor(private router: Router) {
     
@@ -19,6 +20,12 @@ export class DashboardComponent {
 
   navigate(page:String){
     this.router.navigateByUrl('/'+page)
+  }
+
+  logOut= ()=>{
+    sessionStorage.removeItem('User Name')
+    sessionStorage.removeItem('Panel Token')
+    this.router.navigateByUrl('/')
   }
 
 }

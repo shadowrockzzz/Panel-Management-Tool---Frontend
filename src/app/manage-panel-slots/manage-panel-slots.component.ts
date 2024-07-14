@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faHouse, faArrowLeft, faPenToSquare, faPlus, faFloppyDisk } from '@fortawesome/free-solid-svg-icons';
+import { faHouse, faArrowLeft, faPenToSquare, faPlus, faFloppyDisk, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { SampleService } from '../services/sample.service';
 
 @Component({
@@ -16,6 +16,7 @@ export class ManagePanelSlotsComponent {
   faHouse = faHouse;
   faArrowLeft = faArrowLeft;
   faFloppyDisk = faFloppyDisk;
+  faArrowRightFromBracket = faArrowRightFromBracket;
   editMode: Boolean = false;
   name: String = "";
   band: String = "";
@@ -100,6 +101,12 @@ export class ManagePanelSlotsComponent {
     const month = date.getMonth()+1 <10 ? "0"+(date.getMonth()+1): date.getMonth()+1
     const dateMonth = date.getDate()<10? "0"+date.getDate() : date.getDate()
     return `${year}-${month}-${dateMonth}`
+  }
+
+  logOut= ()=>{
+    sessionStorage.removeItem('User Name')
+    sessionStorage.removeItem('Panel Token')
+    this.router.navigateByUrl('/')
   }
 
   dateChangeTrigger(){
