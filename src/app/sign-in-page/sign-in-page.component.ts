@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SampleService } from '../services/sample.service';
 import { Router } from '@angular/router';
+import { AuthServiceService } from '../services/auth-service.service';
 
 @Component({
   selector: 'app-sign-in-page',
@@ -12,7 +13,7 @@ export class SignInPageComponent {
 
   myForm: FormGroup | any;
 
-  constructor(private fb: FormBuilder, private ss: SampleService, private router: Router){
+  constructor(private fb: FormBuilder, private ss: SampleService, private router: Router, private authService: AuthServiceService){
 
   }
 
@@ -33,6 +34,7 @@ export class SignInPageComponent {
     this.ss.signIn(data).subscribe(
       response => {
         console.log('Login response:', response);
+        this.authService.setToken(response.token)
         // this.storage.setItem("panelToken",response.token)
         sessionStorage.setItem("Panel Token",response.token)
         sessionStorage.setItem("User Name",data.userName)
@@ -41,8 +43,11 @@ export class SignInPageComponent {
 
       },
       error => {
-        console.error('Login error:', error);
-        // Handle error (show error message, etc.)
+        if(error.status===404){
+          window.confirm("Unable to connect to database")
+        }else{
+          window.confirm("Invalid Credentials")
+        }
       }
     );
   }

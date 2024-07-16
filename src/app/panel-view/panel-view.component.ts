@@ -28,10 +28,6 @@ export class PanelViewComponent {
 
   panelList:any = [];
 
-  // clickFunc(){
-  //   console.log(this.startDate)
-  // }
-
   logOut= ()=>{
     sessionStorage.removeItem('User Name')
     sessionStorage.removeItem('Panel Token')

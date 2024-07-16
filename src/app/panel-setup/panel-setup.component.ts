@@ -67,7 +67,8 @@ export class PanelSetupComponent {
         })
       }
       else{
-        console.log("No field should be left blank")
+        window.confirm("Fill up all the fields");
+        console.log("No field should be left blank");
       }
     }
     catch(err){

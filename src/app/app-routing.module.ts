@@ -6,6 +6,7 @@ import { PanelSetupComponent } from './panel-setup/panel-setup.component';
 import { PanelSlotAdditionComponent } from './panel-slot-addition/panel-slot-addition.component';
 import { PanelViewComponent } from './panel-view/panel-view.component';
 import { ManagePanelSlotsComponent } from './manage-panel-slots/manage-panel-slots.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -13,22 +14,27 @@ const routes: Routes = [
     component: SignInPageComponent
   },{
     path:'dashboard',
-    component:DashboardComponent
+    component:DashboardComponent,
+    canActivate: [AuthGuardService]
   },{
     path:'panel',
-    component: PanelSetupComponent
+    component: PanelSetupComponent,
+    canActivate:[AuthGuardService]
   },{
     path:'view',
-    component: PanelViewComponent
+    component: PanelViewComponent,
+    canActivate:[AuthGuardService]
   },{
     path:'slot',
-    component: PanelSlotAdditionComponent
+    component: PanelSlotAdditionComponent,
+    canActivate:[AuthGuardService]
   },{
     path:'manage',
-    component: ManagePanelSlotsComponent
+    component: ManagePanelSlotsComponent,
+    canActivate: [AuthGuardService]
   },{
     path:'**',
-    component: SignInPageComponent
+    component: SignInPageComponent,
   }
 ];
 
