@@ -11,7 +11,7 @@
                 <fa-icon (click)="logOut()" class="fa-2x text-white fa-light cursor-pointer" [icon]="faArrowRightFromBracket"></fa-icon>
             </div>
         </div>
-        <div class="flex flex-col gap-5 px-5 py-1 pb-3 border-b-4 border-b-blue-600">
+        <div class="flex flex-col gap-5 px-5 py-1 pb-3 border-b-4 border-b-blue-600 w-full">
             <div class="flex flex-row items-center gap-10">
                 <p class="inline-block pr-40 h-fit my-auto flex">Search Filter by:</p>
                 <div class="flex flex-row h-10">
@@ -24,14 +24,14 @@
                 </div>
                 <fa-icon (click)="submitFilter()" class="fa-2x w-1/5 flex justify-end items-center text-blue-600 fa-light cursor-pointer" [icon]="faMagnifyingGlass"></fa-icon>
             </div>
-            <div class="flex flex-row gap-10">
-                <label for="name" class="gap-3 flex flex-row">
+            <div class="flex flex-row gap-10 w-full justify-between">
+                <label for="name" class="gap-3 flex flex-row w-1/5">
                     <p class="flex justify-center items-center">Name:</p>
                     <input id="name" [(ngModel)]="name" type="text" class="border-2 border-blue-600" />
                 </label>
-                <label for="band" class="gap-3 flex flex-row">
+                <label for="band" class="gap-3 flex flex-row w-1/5">
                     <p class="flex justify-center items-center">Band:</p>
-                    <select [(ngModel)]="band" id="band" class="border-2 border-blue-600">
+                    <select [(ngModel)]="band" id="band" class="border-2 border-blue-600 w-3/4">
                         <option value="band 1">
                             Band 1
                         </option>
@@ -40,9 +40,9 @@
                         </option>
                     </select>
                 </label>
-                <label for="accountName" class="gap-3 flex flex-row">
+                <label for="accountName" class="gap-3 flex flex-row w-1/5">
                     <p class="flex justify-center items-center">Account Name:</p>
-                    <select [(ngModel)]="accountName" id="accountName" class="border-2 border-blue-600">
+                    <select [(ngModel)]="accountName" id="accountName" class="border-2 border-blue-600 w-1/2">
                         <option value="ABC Corp">
                             ABC Corp
                         </option>
@@ -51,11 +51,11 @@
                         </option>
                     </select>
                 </label>
-                <label for="skillSet" class="gap-3 flex flex-row">
+                <label for="skillSet" class="gap-3 flex flex-row w-1/5">
                     <p class="flex justify-center items-center">Skill Set:</p>
                     <input [(ngModel)]="skillSet" id="skillSet" type="text" class="border-2 border-blue-600" />
                 </label>
-                <button class="text-white bg-blue-600 px-5 py-2 rounded-md"> Reset</button>
+                <button class="text-white bg-blue-600 px-5 py-2 rounded-md" (click)="reset()"> Reset</button>
             </div>
         </div>
         <div class="border-t-2 border-t-blue-600 h-4/5 w-full cursor-pointer">

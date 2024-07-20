@@ -63,10 +63,6 @@ export class PanelViewComponent {
 
   }
 
-  download = ()=>{
-
-  }
-
   generateExcel(data:any[], fileName:string, sheetName:string){
     const workSheet:xlsx.WorkSheet = xlsx.utils.json_to_sheet(data)
     const workBook:xlsx.WorkBook = {Sheets:{[sheetName]: workSheet},SheetNames:[sheetName]}
@@ -77,6 +73,16 @@ export class PanelViewComponent {
   saveAsExcelFile(buffer:any, fileName:string){
     const data:Blob = new Blob([buffer],{type:"application/octet-stream"});
     saveAs(data,fileName+"_export_"+new Date().getTime().toString()+".xlsx")
+  }
+
+  reset(){
+    this.startDate = "";
+    this.endDate = "";
+    this.name="";
+    this.band = "";
+    this.accountName = "";
+    this.skillSet = "";
+    this.getAllPanels()
   }
 
 

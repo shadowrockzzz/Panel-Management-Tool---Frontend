@@ -15,7 +15,7 @@
         <fa-icon class="fa-10x text-white fa-light" [icon]="faCalendar"></fa-icon>
         <p class="text-3xl text-white text-medium">Add Panel Slots</p>
     </div>
-    <div (click)="navigate('view')" class="w-1/3 h-fit bg-blue-600 flex justify-center items-center flex flex-col gap-2 py-3 cursor-pointer">
+    <div  *ngIf="userType!='panel'" (click)="navigate('view')" class="w-1/3 h-fit bg-blue-600 flex justify-center items-center flex flex-col gap-2 py-3 cursor-pointer">
         <fa-icon class="fa-10x text-white fa-light" [icon]="faList"></fa-icon>
         <p class="text-3xl text-white text-medium">View and Book Panel Slots</p>
     </div>

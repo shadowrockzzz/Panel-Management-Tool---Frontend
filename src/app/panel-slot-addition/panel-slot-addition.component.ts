@@ -20,7 +20,7 @@ export class PanelSlotAdditionComponent implements OnInit {
   skillSet: String = "";
   userName: any = sessionStorage.getItem("User Name")
 
-  slots: {start: any, end: any, status: String, bookedBy: String, comments: String, id:any}[] = [];
+  slots: {start: any, end: any, status: String, bookedBy: String, comments: String, id:any, reviewedBy: String}[] = [];
 
   constructor(private location: Location, private router: Router, private service: SampleService){
     this.service.getPanelData(this.userName).subscribe((data)=>{
@@ -63,7 +63,10 @@ export class PanelSlotAdditionComponent implements OnInit {
   getSlots(){
     let userName = sessionStorage.getItem("User Name")
     if(userName){
-      this.service.getSlotsByPanel(new Date(), userName).subscribe((data)=>{
+      const date1 = new Date()
+      const date = new Date(date1.getFullYear(), date1.getMonth(),date1.getDate())
+      console.log(date)
+      this.service.getSlotsByPanel(date, userName).subscribe((data)=>{
         for (let slot in data){
           this.slots.push({
             start: this.formatDate(data[slot].start.toString()),
@@ -71,7 +74,8 @@ export class PanelSlotAdditionComponent implements OnInit {
             status: data[slot].status,
             bookedBy: data[slot].bookedBy,
             comments: data[slot].comments,
-            id: data[slot]._id
+            id: data[slot]._id,
+            reviewedBy: ""
           })
         }
       })
@@ -79,14 +83,22 @@ export class PanelSlotAdditionComponent implements OnInit {
   }
 
   formatDate(dateTimeString: string): string {
+    // const date = new Date(dateTimeString);
+    // const year = date.getUTCFullYear();
+    // const month = `${date.getUTCMonth() + 1}`.padStart(2, '0');
+    // const day = `${date.getUTCDate()}`.padStart(2, '0');
+    // const hours = `${date.getUTCHours()}`.padStart(2, '0');
+    // const minutes = `${date.getUTCMinutes()}`.padStart(2, '0');
+    // return `${year}-${month}-${day}T${hours}:${minutes}`;
     const date = new Date(dateTimeString);
-    const year = date.getUTCFullYear();
-    const month = `${date.getUTCMonth() + 1}`.padStart(2, '0');
-    const day = `${date.getUTCDate()}`.padStart(2, '0');
-    const hours = `${date.getUTCHours()}`.padStart(2, '0');
-    const minutes = `${date.getUTCMinutes()}`.padStart(2, '0');
+    const year = date.getFullYear();
+    const month = `${date.getMonth() + 1}`.padStart(2, '0');
+    const day = `${date.getDate()}`.padStart(2, '0');
+    const hours = `${date.getHours()}`.padStart(2, '0');
+    const minutes = `${date.getMinutes()}`.padStart(2, '0');
     return `${year}-${month}-${day}T${hours}:${minutes}`;
   }
+
 
   updateSlots(){
     for (let slot of this.slots){
@@ -143,7 +155,7 @@ export class PanelSlotAdditionComponent implements OnInit {
   }
 
   slotAddition(){
-    this.slots.push({"start":"0000-00-00T00:00:00", "end": "0000-00-00T00:00:00",status: "available", bookedBy: "-", comments: "", id:null})
+    this.slots.push({"start":"0000-00-00T00:00:00", "end": "0000-00-00T00:00:00",status: "available", bookedBy: "-", comments: "", id:null, reviewedBy: ""})
   }
 
   goBack(){

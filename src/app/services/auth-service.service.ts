@@ -18,6 +18,10 @@ export class AuthServiceService {
   }
 
   isAuthenticated():Boolean{
+    const token = sessionStorage.getItem("Panel Token")
+    if(token){
+      this.setToken(token)
+    }
     return !!this.token
   }
 

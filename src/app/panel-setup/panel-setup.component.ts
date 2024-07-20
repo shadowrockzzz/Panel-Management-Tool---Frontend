@@ -26,6 +26,8 @@ export class PanelSetupComponent {
     this.panelForm = this.fb.group({
       name: ["",Validators.required, Validators.minLength(3)] ,
       band: ["",Validators.required],
+      role:["",Validators.required],
+      password: ["",Validators.required],
       skillSet: ["",Validators.required],
       emailId: ["",Validators.required],
       ICPCertified: ["Yes",Validators.required],
@@ -62,13 +64,14 @@ export class PanelSetupComponent {
     try{
       if(!blank){
         this.service.register(this.panelForm.value).subscribe((data)=>{
-          console.log(data)
-          console.log("Data added to the database")
+          window.confirm("User added to the Database")
+          this.panelForm.reset()
+        },()=>{
+          window.confirm("Unable to save the details. Please try again later")
         })
       }
       else{
-        window.confirm("Fill up all the fields");
-        console.log("No field should be left blank");
+        window.confirm("Submit by filling up all the fields");
       }
     }
     catch(err){

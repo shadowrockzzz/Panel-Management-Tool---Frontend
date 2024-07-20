@@ -20,8 +20,6 @@ export class SampleService {
     let value: any = userName
     let token: any = sessionStorage.getItem("Panel Token")
 
-    // console.log(value,token)
-
     queryParams = queryParams.set("userName",value)
     queryParams = queryParams.set("token",token)
 
@@ -38,9 +36,6 @@ export class SampleService {
       queryParams = queryParams.set(key,data[key])
     })
 
-    // const headers = new HttpHeaders({
-    //   'Content-Type': 'application/json'
-    // });
     return this.http.get<any>(this.baseURL+"login",{params: queryParams})
     }
 
@@ -67,7 +62,6 @@ export class SampleService {
   }
 
   updateSlots(data:any){
-    console.log(data)
     return this.http.post<any>(this.baseURL+"updateslots",data)
   }
 
@@ -76,7 +70,6 @@ export class SampleService {
   }
 
   getSlotsByPanel(startDate:Date, userName: String){
-
     const startDateInString = startDate.toString()
     let userNameInString = "";
     if(userName){
@@ -90,6 +83,23 @@ export class SampleService {
 
     return this.http.get<any>(this.baseURL+"getslotsbypanel",{params: params})
   }
+
+  getSlotsByPanelandDates(startDate:Date, endDate:Date, userName:String){
+    const startDateInString = startDate.toString()
+    const endDateInString = endDate.toString()
+    let userNameInString = "";
+    if(userName){
+      userNameInString = userName.toString()
+    }
+    let params = new HttpParams();
+
+    params = params.set("startDate",startDateInString)
+    params = params.set("endDate",endDateInString)
+    params = params.set("userName", userNameInString)
+
+    return this.http.get<any>(this.baseURL+"getslotsbypanelanddates",{params: params})
+  }
+
 
   deleteSlot(id:string){
     return this.http.delete<any>(this.baseURL+"slot/"+id)

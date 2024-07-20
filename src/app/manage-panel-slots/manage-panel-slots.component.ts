@@ -26,7 +26,7 @@ export class ManagePanelSlotsComponent {
 
   userName: any = sessionStorage.getItem('User Name');
 
-  slots: {start: any, end: any, status: String, bookedBy: String, comments: String, id:any}[] = [];
+  slots: {start: any, end: any, status: String, bookedBy: String, comments: String, id:any, reviewedBy:String}[] = [];
 
   constructor(private location: Location, private router: Router, private service: SampleService, private route: ActivatedRoute){
     try {
@@ -39,16 +39,19 @@ export class ManagePanelSlotsComponent {
     catch(err){
       console.error(err)
     }
-
   }
 
   updateSlot(){
     this.editSlots()
     for (let data in this.slots){
       if(this.slots[data].id){
-        this.service.updateSlots(this.slots[data]).subscribe((data)=>{
-          console.log(data)
-        })
+        let currentUser = sessionStorage.getItem("User Name")
+        if(currentUser){
+          this.slots[data].reviewedBy = currentUser
+          this.service.updateSlots(this.slots[data]).subscribe((data)=>{
+            console.log(data)
+          })
+        }
       }else{
         if(this.slots[data].start && this.slots[data].end){
           const item = {...this.slots[data]}
@@ -78,7 +81,8 @@ export class ManagePanelSlotsComponent {
       status:"available",
       bookedBy: "-",
       comments: "",
-      id:null
+      id:null,
+      reviewedBy: ""
     })
   }
 
@@ -87,12 +91,19 @@ export class ManagePanelSlotsComponent {
   }
 
   formatDate(dateTimeString: string): string {
+    // const date = new Date(dateTimeString);
+    // const year = date.getUTCFullYear();
+    // const month = `${date.getUTCMonth() + 1}`.padStart(2, '0');
+    // const day = `${date.getUTCDate()}`.padStart(2, '0');
+    // const hours = `${date.getUTCHours()}`.padStart(2, '0');
+    // const minutes = `${date.getUTCMinutes()}`.padStart(2, '0');
+    // return `${year}-${month}-${day}T${hours}:${minutes}`;
     const date = new Date(dateTimeString);
-    const year = date.getUTCFullYear();
-    const month = `${date.getUTCMonth() + 1}`.padStart(2, '0');
-    const day = `${date.getUTCDate()}`.padStart(2, '0');
-    const hours = `${date.getUTCHours()}`.padStart(2, '0');
-    const minutes = `${date.getUTCMinutes()}`.padStart(2, '0');
+    const year = date.getFullYear();
+    const month = `${date.getMonth() + 1}`.padStart(2, '0');
+    const day = `${date.getDate()}`.padStart(2, '0');
+    const hours = `${date.getHours()}`.padStart(2, '0');
+    const minutes = `${date.getMinutes()}`.padStart(2, '0');
     return `${year}-${month}-${day}T${hours}:${minutes}`;
   }
 
@@ -123,7 +134,50 @@ export class ManagePanelSlotsComponent {
     }
     else{
       try{
-        this.service.getAllSlots(this.startDate,this.endDate).subscribe((data)=>{
+        // console.log(this.startDate, typeof(this.startDate))
+        // const [UTCStartYear, UTCStartMonth, UTCStartDay] = this.startDate.split("-")
+        // const [UTCEndYear, UTCEndMonth, UTCEndDay] = this.endDate.split("-")
+        // // this.service.getAllSlots(new Date(UTCStartYear, UTCStartMonth, UTCStartDay).toString(),new Date(UTCEndYear, UTCEndMonth, UTCEndDay).toString()).subscribe((data)=>{
+        // const UTCStartDate = new Date(UTCStartYear, UTCStartMonth-1, UTCStartDay)
+        // const UTCEndDate = new Date(UTCEndYear, UTCEndMonth-1, UTCEndDay)
+
+
+
+        // this.service.getAllSlots(this.startDate, this.endDate).subscribe((data)=>{
+        //   this.slots = []
+        //   console.log(data)
+        //   for (let item in data){
+        //     this.slots.push({
+        //       start:this.formatDate(data[item].start),
+        //       end : this.formatDate(data[item].end),
+        //       status: data[item].status,
+        //       bookedBy: data[item].bookedBy,
+        //       comments: data[item].comments,
+        //       id: data[item]._id,
+        //       reviewedBy: data[item].reviewedBy
+        //     })
+        //   }
+        //   console.log(this.slots)
+        // })
+
+        // this.service.getSlotsByPanel(this.startDate, this.userName).subscribe((data)=>{
+        //   this.slots = []
+        //   console.log(data)
+        //   for (let item in data){
+        //     this.slots.push({
+        //       start:this.formatDate(data[item].start),
+        //       end : this.formatDate(data[item].end),
+        //       status: data[item].status,
+        //       bookedBy: data[item].bookedBy,
+        //       comments: data[item].comments,
+        //       id: data[item]._id,
+        //       reviewedBy: data[item].reviewedBy
+        //     })
+        //   }
+        //   console.log(this.slots)
+        // })
+
+        this.service.getSlotsByPanelandDates(this.startDate, this.endDate, this.userName).subscribe((data)=>{
           this.slots = []
           console.log(data)
           for (let item in data){
@@ -133,7 +187,8 @@ export class ManagePanelSlotsComponent {
               status: data[item].status,
               bookedBy: data[item].bookedBy,
               comments: data[item].comments,
-              id: data[item]._id
+              id: data[item]._id,
+              reviewedBy: data[item].reviewedBy
             })
           }
           console.log(this.slots)
@@ -147,7 +202,45 @@ export class ManagePanelSlotsComponent {
 
   ngOnInit(){
 
-    this.service.getAllSlots(this.startDate, this.endDate).subscribe((data)=>{
+    // this.service.getAllSlots(this.startDate, this.endDate).subscribe((data)=>{
+    //   try{
+    //     for (let item in data){
+    //       this.slots.push({
+    //         start:this.formatDate(data[item].start),
+    //         end : this.formatDate(data[item].end),
+    //         status: data[item].status,
+    //         bookedBy: data[item].bookedBy,
+    //         comments: data[item].comments,
+    //         id: data[item]._id,
+    //         reviewedBy: data[item].reviewedBy
+    //       })
+    //     }
+    //   }
+    //   catch(err){
+    //     console.error(err)
+    //   }
+    // })
+
+    // this.service.getSlotsByPanel(this.startDate, this.userName).subscribe((data)=>{
+    //   try{
+    //     for (let item in data){
+    //       this.slots.push({
+    //         start:this.formatDate(data[item].start),
+    //         end : this.formatDate(data[item].end),
+    //         status: data[item].status,
+    //         bookedBy: data[item].bookedBy,
+    //         comments: data[item].comments,
+    //         id: data[item]._id,
+    //         reviewedBy: data[item].reviewedBy
+    //       })
+    //     }
+    //   }
+    //   catch(err){
+    //     console.error(err)
+    //   }
+    // })
+
+    this.service.getSlotsByPanelandDates(this.startDate, this.endDate, this.userName).subscribe((data)=>{
       try{
         for (let item in data){
           this.slots.push({
@@ -156,7 +249,8 @@ export class ManagePanelSlotsComponent {
             status: data[item].status,
             bookedBy: data[item].bookedBy,
             comments: data[item].comments,
-            id: data[item]._id
+            id: data[item]._id,
+            reviewedBy: data[item].reviewedBy
           })
         }
       }
