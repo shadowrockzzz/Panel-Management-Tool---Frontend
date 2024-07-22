@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { faHouse, faArrowLeft, faArrowDown, faChevronRight, faMagnifyingGlass, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faHouse, faArrowLeft, faChevronRight, faMagnifyingGlass, faArrowRightFromBracket, faDownload } from '@fortawesome/free-solid-svg-icons';
 import { SampleService } from '../services/sample.service';
 import * as xlsx from 'xlsx';
 import {saveAs} from 'file-saver';
@@ -15,11 +15,11 @@ export class PanelViewComponent {
 
   faHouse = faHouse;
   faArrowLeft = faArrowLeft;
-  faArrowDown = faArrowDown;
+  faDownload = faDownload;
   faChevronRight=faChevronRight;
   faMagnifyingGlass = faMagnifyingGlass;
   faArrowRightFromBracket = faArrowRightFromBracket;
-  startDate:string = "";
+  startDate:string = this.formatDate(new Date());
   endDate:string = "";
   name: string="";
   band: string = ""
@@ -32,6 +32,13 @@ export class PanelViewComponent {
     sessionStorage.removeItem('User Name')
     sessionStorage.removeItem('Panel Token')
     this.router.navigateByUrl('/')
+  }
+
+  formatDate(date:Date):string{
+    let res = date.getFullYear()+"-"
+    res+=((date.getMonth()<10)?("0"+(date.getMonth()+1)): (date.getMonth()+1))+"-"
+    res+=(date.getDate()<10)?("0"+date.getDate()): date.getDate()
+    return res
   }
 
   submitFilter = ()=>{
@@ -87,7 +94,7 @@ export class PanelViewComponent {
 
 
   ngOnInit(){
-    this.getAllPanels()
+    this.submitFilter()
   }
 
   getAllPanels(){

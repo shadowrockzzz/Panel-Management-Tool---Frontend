@@ -1,22 +1,22 @@
-<div class="w-full h-max py-4 px-2 bg-blue-600 flex flex-row justify-between px-10">
+<div class="w-full h-24 py-4 px-2 bg-blue-600 flex flex-row justify-between pr-20 pl-10">
     <p class="text-white text-3xl my-auto relative font-medium flex items-center">Panel Management Application</p>
     <fa-icon (click)="logOut()" class="fa-3x text-white fa-light cursor-pointer" [icon]="faArrowRightFromBracket"></fa-icon>
 </div>
-<div class="flex flex-wrap gap-10 py-10 mx-auto my-auto w-full flex justify-center items-center">
-    <div (click)="navigate('panel')" class="w-1/3 h-fit bg-blue-600 flex justify-center items-center flex flex-col gap-2 py-3 cursor-pointer">
-        <fa-icon class="fa-10x text-white fa-light" [icon]="faPlus"></fa-icon>
-        <p class="text-3xl text-white text-medium">Add Panel</p>
+<div class="flex flex-wrap gap-20 py-10 mx-auto my-auto w-3/5 mx-auto relative flex justify-center items-center">
+    <div (click)="navigate('panel')" class="h-80 text-blue-600 active:text-white w-80 bg-white hover:bg-blue-200 border-2 border-blue-600 active:bg-blue-600 flex justify-center items-center flex-col gap-2 py-3 cursor-pointer rounded-full transition duration-300 ease-in-out">
+        <fa-icon class="fa-5x fa-light" [icon]="faPlus"></fa-icon>
+        <p class="text-medium text-xl">Add Panel</p>
     </div>
-    <div (click)="navigate('manage')" class="w-1/3 h-fit bg-blue-600 flex justify-center items-center flex flex-col gap-2 py-3 cursor-pointer">
-        <fa-icon class="fa-10x text-white fa-light" [icon]="faMagnifyingGlass"></fa-icon>
-        <p class="text-3xl text-white text-medium">Manage Panel</p>
+    <div (click)="navigate('manage')" class="h-80 text-blue-600 active:text-white w-80 bg-white hover:bg-blue-200 border-2 border-blue-600 active:bg-blue-600 flex justify-center items-center flex-col gap-2 py-3 cursor-pointer rounded-full transition duration-300 ease-in-out">
+        <fa-icon class="fa-5x fa-light" [icon]="faMagnifyingGlass"></fa-icon>
+        <p class="text-medium text-xl">Manage Panel</p>
     </div>
-    <div (click)="navigate('slot')" class="w-1/3 h-fit bg-blue-600 flex justify-center items-center flex flex-col gap-2 py-3 cursor-pointer">
-        <fa-icon class="fa-10x text-white fa-light" [icon]="faCalendar"></fa-icon>
-        <p class="text-3xl text-white text-medium">Add Panel Slots</p>
+    <div (click)="navigate('slot')" class="h-80 text-blue-600 active:text-white w-80 bg-white hover:bg-blue-200 border-2 border-blue-600 active:bg-blue-600 flex justify-center items-center flex-col gap-2 py-3 cursor-pointer rounded-full transition duration-300 ease-in-out">
+        <fa-icon class="fa-5x fa-light" [icon]="faCalendar"></fa-icon>
+        <p class="text-medium text-xl">Add Panel Slots</p>
     </div>
-    <div  *ngIf="userType!='panel'" (click)="navigate('view')" class="w-1/3 h-fit bg-blue-600 flex justify-center items-center flex flex-col gap-2 py-3 cursor-pointer">
-        <fa-icon class="fa-10x text-white fa-light" [icon]="faList"></fa-icon>
-        <p class="text-3xl text-white text-medium">View and Book Panel Slots</p>
+    <div  *ngIf="userType!='panel'" (click)="navigate('view')" class="h-80 text-blue-600 active:text-white w-80 bg-white hover:bg-blue-200 border-2 border-blue-600 active:bg-blue-600 flex justify-center items-center flex-col gap-2 py-3 cursor-pointer rounded-full transition duration-300 ease-in-out">
+        <fa-icon class="fa-5x fa-light" [icon]="faList"></fa-icon>
+        <p class="text-medium text-xl">View and Book Panel Slots</p>
     </div>
 </div>

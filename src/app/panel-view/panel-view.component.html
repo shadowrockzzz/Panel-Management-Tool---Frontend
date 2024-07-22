@@ -1,76 +1,72 @@
-<div class="w-full p-2 h-screen">
-    <div class="w-full flex flex-col gap-5 border-2 border-blue-600 h-full">
-        <div class="h-24 w-full bg-blue-600 text-white flex flex-row justify-between items-center text-2xl text-medium px-10">
-            <div class="flex justify-start text-3xl font-bold items-center">
-                <p>Panel View</p>
-            </div>
-            <div class="flex flex-row justify-end gap-10 items-center">
-                <fa-icon (click)="generateExcel(panelList,'Panel List','panel list')" class="fa-2x text-white fa-light cursor-pointer" [icon]="faArrowDown"></fa-icon>
-                <fa-icon (click)="goToHome()" class="fa-2x text-white fa-light cursor-pointer" [icon]="faHouse"></fa-icon>
-                <fa-icon (click)="goBack()" class="fa-2x text-white fa-light cursor-pointer" [icon]="faArrowLeft"></fa-icon>
-                <fa-icon (click)="logOut()" class="fa-2x text-white fa-light cursor-pointer" [icon]="faArrowRightFromBracket"></fa-icon>
-            </div>
+<div class="h-24 w-full bg-blue-600 text-white flex flex-row justify-between items-center text-2xl text-medium px-10">
+    <div class="flex justify-start text-3xl font-bold items-center">
+        <p>Panel View</p>
+    </div>
+    <div class="flex flex-row justify-end gap-10 items-center">
+        <fa-icon (click)="generateExcel(panelList,'Panel List','panel list')" class="fa-2x text-white fa-light cursor-pointer" [icon]="faDownload"></fa-icon>
+        <fa-icon (click)="goToHome()" class="fa-2x text-white fa-light cursor-pointer" [icon]="faHouse"></fa-icon>
+        <fa-icon (click)="goBack()" class="fa-2x text-white fa-light cursor-pointer" [icon]="faArrowLeft"></fa-icon>
+        <fa-icon (click)="logOut()" class="fa-2x text-white fa-light cursor-pointer" [icon]="faArrowRightFromBracket"></fa-icon>
+    </div>
+</div>
+<div class="flex flex-col relative mt-10 gap-5 px-5 py-1 pb-3 border-b-4 border-b-blue-600 w-full">
+    <div class="flex flex-row items-center gap-10">
+        <p class="inline-block pr-40 h-fit my-auto flex text-2xl font-bold text-blue-600">Search Filter by:</p>
+        <div class="flex flex-row h-10">
+            <p class="h-fit my-auto flex font-medium text-blue-600 text-xl">From Date:</p> &nbsp;
+            <input type="date" [(ngModel)]="startDate" class="border-2 border-blue-600 px-4 py-2 rounded-md" >
         </div>
-        <div class="flex flex-col gap-5 px-5 py-1 pb-3 border-b-4 border-b-blue-600 w-full">
-            <div class="flex flex-row items-center gap-10">
-                <p class="inline-block pr-40 h-fit my-auto flex">Search Filter by:</p>
-                <div class="flex flex-row h-10">
-                    <p class="h-fit my-auto flex">From Date:</p> &nbsp;
-                    <input type="date" [(ngModel)]="startDate" class="border-2 border-blue-600 px-4 py-2" >
-                </div>
-                <div class="flex flex-row h-10">
-                    <p class="h-fit my-auto">To Date:</p> &nbsp;
-                    <input type="date" [(ngModel)]="endDate" class="border-2 border-blue-600 px-4 py-2" >
-                </div>
-                <fa-icon (click)="submitFilter()" class="fa-2x w-1/5 flex justify-end items-center text-blue-600 fa-light cursor-pointer" [icon]="faMagnifyingGlass"></fa-icon>
-            </div>
-            <div class="flex flex-row gap-10 w-full justify-between">
-                <label for="name" class="gap-3 flex flex-row w-1/5">
-                    <p class="flex justify-center items-center">Name:</p>
-                    <input id="name" [(ngModel)]="name" type="text" class="border-2 border-blue-600" />
-                </label>
-                <label for="band" class="gap-3 flex flex-row w-1/5">
-                    <p class="flex justify-center items-center">Band:</p>
-                    <select [(ngModel)]="band" id="band" class="border-2 border-blue-600 w-3/4">
-                        <option value="band 1">
-                            Band 1
-                        </option>
-                        <option value="band 2">
-                            Band 2
-                        </option>
-                    </select>
-                </label>
-                <label for="accountName" class="gap-3 flex flex-row w-1/5">
-                    <p class="flex justify-center items-center">Account Name:</p>
-                    <select [(ngModel)]="accountName" id="accountName" class="border-2 border-blue-600 w-1/2">
-                        <option value="ABC Corp">
-                            ABC Corp
-                        </option>
-                        <option value="Aviva">
-                            Aviva
-                        </option>
-                    </select>
-                </label>
-                <label for="skillSet" class="gap-3 flex flex-row w-1/5">
-                    <p class="flex justify-center items-center">Skill Set:</p>
-                    <input [(ngModel)]="skillSet" id="skillSet" type="text" class="border-2 border-blue-600" />
-                </label>
-                <button class="text-white bg-blue-600 px-5 py-2 rounded-md" (click)="reset()"> Reset</button>
-            </div>
+        <div class="flex flex-row h-10">
+            <p class="h-fit my-auto font-medium text-blue-600 text-xl">To Date:</p> &nbsp;
+            <input type="date" [(ngModel)]="endDate" class="border-2 border-blue-600 px-4 py-2 rounded-md" >
         </div>
-        <div class="border-t-2 border-t-blue-600 h-4/5 w-full cursor-pointer">
-            <div (click)="navigateToPanelSlots(panel.userName)" *ngFor="let panel of panelList" class="border-b-2 border-b-blue-600 flex flex-row gap-10 justify-between px-10 py-5">
-                <p class="w-fit w-1/5 inline-block flex justify-start items-center">
-                    {{panel.userName}}
-                </p>
-                <p class="w-fit w-1/5 inline-block flex justify-start items-center">
-                    {{panel.accountName}}
-                </p>
-                <p class="w-fit w-2/5 inline-block flex justify-start items-center">
-                    {{panel.skillSet}}
-                </p>
-                <fa-icon class="fa-2x w-1/5 flex justify-end items-center text-blue-600 fa-light cursor-pointer" [icon]="faChevronRight"></fa-icon>
-            </div>
-        </div>
+        <fa-icon (click)="submitFilter()" class="fa-2x w-1/5 flex justify-end items-center text-blue-600 fa-light cursor-pointer" [icon]="faMagnifyingGlass"></fa-icon>
+    </div>
+    <div class="flex flex-row gap-10 w-full justify-between">
+        <label for="name" class="gap-3 flex flex-row w-1/5">
+            <p class="flex justify-center items-center font-medium text-blue-600 text-xl">Name:</p>
+            <input id="name" [(ngModel)]="name" type="text" class="border-2 border-blue-600 rounded-md px-2" />
+        </label>
+        <label for="band" class="gap-3 flex flex-row w-1/5">
+            <p class="flex justify-center items-center font-medium text-blue-600 text-xl">Band:</p>
+            <select [(ngModel)]="band" id="band" class="border-2 border-blue-600 w-3/4 rounded-md">
+                <option value="band 1">
+                    Band 1
+                </option>
+                <option value="band 2">
+                    Band 2
+                </option>
+            </select>
+        </label>
+        <label for="accountName" class="gap-3 flex flex-row w-1/5">
+            <p class="flex justify-center items-center  font-medium text-blue-600 text-xl">Account Name:</p>
+            <select [(ngModel)]="accountName" id="accountName" class="border-2 border-blue-600 w-1/2 rounded-md">
+                <option value="ABC Corp">
+                    ABC Corp
+                </option>
+                <option value="Aviva">
+                    Aviva
+                </option>
+            </select>
+        </label>
+        <label for="skillSet" class="gap-3 flex flex-row w-1/5">
+            <p class="flex justify-center items-center  font-medium text-blue-600 text-xl">Skill Set:</p>
+            <input [(ngModel)]="skillSet" id="skillSet" type="text" class="border-2 border-blue-600 rounded-md px-2" />
+        </label>
+        <button class="text-white bg-blue-600 px-5 py-2 rounded-md" (click)="reset()"> Reset</button>
+    </div>
+</div>
+<div class="border-t-2 border-t-blue-600 h-4/5 w-full cursor-pointer">
+    <div (click)="navigateToPanelSlots(panel.userName)" *ngFor="let panel of panelList" class="border-b-2 border-b-blue-600 flex flex-row gap-10 justify-between px-10 py-5 hover:bg-blue-100">
+        <p class="w-fit w-1/5 inline-block flex justify-start items-center">
+            {{panel.userName}}
+        </p>
+        <p class="w-fit w-1/5 inline-block flex justify-start items-center">
+            {{panel.accountName}}
+        </p>
+        <p class="w-fit w-2/5 inline-block flex justify-start items-center">
+            {{panel.skillSet}}
+        </p>
+        <fa-icon class="fa-2x w-1/5 flex justify-end items-center text-blue-600 fa-light cursor-pointer" [icon]="faChevronRight"></fa-icon>
     </div>
 </div>

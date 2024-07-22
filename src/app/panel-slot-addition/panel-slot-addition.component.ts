@@ -101,24 +101,30 @@ export class PanelSlotAdditionComponent implements OnInit {
 
 
   updateSlots(){
+    const promises = []
     for (let slot of this.slots){
       if(slot.id){
-        this.service.updateSlots(slot).subscribe((data)=>{
+        const promise1 = this.service.updateSlots(slot).subscribe((data)=>{
           console.log(data)
         })
+        promises.push(promise1)
       }
       else{
         let user = sessionStorage.getItem("User Name")
         if(user){
           slot.bookedBy = user
-          this.service.addSlot(slot).subscribe((data)=>{
+          const promise1 = this.service.addSlot(slot).subscribe((data)=>{
             console.log(data)
           })
+          promises.push(promise1)
         }
       }
     }
 
     this.deleteSlotsWhenSaved()
+    Promise.all(promises).then(()=>{
+      window.confirm("Slots are added/updated")
+    })
   }
 
   deleteSlotList: string[] = []
