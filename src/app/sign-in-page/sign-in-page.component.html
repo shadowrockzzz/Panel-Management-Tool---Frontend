@@ -1,5 +1,5 @@
 <div class="flex justify-center items-center w-full h-screen">
-    <div class="w-1/2 h-1/2 rounded-md border-2 border-black bg-gray-100 relative flex justify-center items-center">
+    <div class="w-fit h-fit py-10 px-40 rounded-md border-2 border-black bg-gray-100 relative flex justify-center items-center">
         <form class="flex flex-col gap-10 items-center" [formGroup]="myForm" (ngSubmit)="onSubmit()">
             <p class="text-3xl font-bold">Panel Management Tool</p>
             <label class="flex flex-col gap-5 font-medium text-xl" for="userName">
@@ -10,11 +10,9 @@
                 <p>Password:</p>
                 <input class="border-2 border-black rounded-md px-4 py-1 text-sm" id="password" formControlName="password" type="password" required />
             </label>
-
             <label for="button">
                 <input class="rounded-md bg-blue-600 border-2 border-black text-white px-4 py-2 cursor-pointer" id="button" type="submit" placeholder="Submit" />
             </label>
-            
         </form>
     </div>
 </div>
