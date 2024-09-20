@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faArrowLeft, faArrowRightFromBracket, faHouse } from '@fortawesome/free-solid-svg-icons';
@@ -18,7 +18,7 @@ export class PanelSetupComponent {
   faArrowLeft = faArrowLeft;
   faArrowRightFromBracket = faArrowRightFromBracket;
 
-  constructor(private fb: FormBuilder, private location: Location, private router: Router, private service: SampleService){
+  constructor(private fb: FormBuilder, private location: Location, private router: Router, private service: SampleService, private renderer: Renderer2){
 
   }
 
@@ -41,6 +41,43 @@ export class PanelSetupComponent {
       practice: ["practice 1", Validators.required],
       level: ["level 1",Validators.required]
     })
+  }
+
+  miniScreen: boolean = false
+
+  bulkPanelUploadButton = ()=>{
+    this.miniScreen = true
+    this.renderer.setStyle(document.body,'overflow',"hidden")
+    this.renderer.setStyle(document.body,'height','100vh')
+  }
+
+  fileUpload: File | any = ""
+
+  uploadBulkFile = ()=>{
+    this.service.uploadFile(this.fileUpload).subscribe((response)=>{
+      confirm(response.data)
+    },(err)=>{
+      if (err.status===415){
+        confirm("Upload file is in wrong format. Please upload .xlsx file")
+      }
+      else{
+        confirm(err.error)
+      }
+    })
+    this.closePopup()
+  }
+
+  onFileSelected(event: Event){
+    const input = event.target as HTMLInputElement
+    if(input.files && input.files.length>0){
+      this.fileUpload = input.files[0]
+    }
+  }
+
+  closePopup(){
+    this.miniScreen = false
+    this.renderer.removeStyle(document.body,'overflow')
+    this.renderer.removeStyle(document.body,'height')
   }
 
 

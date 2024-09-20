@@ -4,10 +4,18 @@
             <p>Manage Panel Details</p>
         </div>
         <div class="flex flex-row justify-end gap-10 items-center">
+            <button (click)="bulkPanelUploadButton()" class="w-fit h-fit px-2 py-1 cursor-pointer rounded-md bg-white text-blue-600">Bulk Panel Upload</button>
             <fa-icon (click)="goToHome()" class="fa-2x text-white fa-light cursor-pointer" [icon]="faHouse"></fa-icon>
             <fa-icon (click)="goBack()" class="fa-2x text-white fa-light cursor-pointer" [icon]="faArrowLeft"></fa-icon>
             <fa-icon (click)="logOut()" class="fa-2x text-white fa-light cursor-pointer" [icon]="faArrowRightFromBracket"></fa-icon>
         </div>
+    </div>
+    <div (click)="closePopup()" class="z-20 w-full h-full bg-black absolute flex justify-center items-center opacity-80 " *ngIf="miniScreen">
+        
+    </div>
+    <div *ngIf="miniScreen" class="z-30 left-1/4 top-1/4 w-1/2 h-1/2 absolute bg-white opacity-100 flex m-auto flex justify-center items-center">
+        <input type="file" [(ngModel)]="fileUpload" (change)="onFileSelected($event)" >
+        <input type="button" (click)="uploadBulkFile()" value="Upload" class="px-2 py-1 bg-blue-600 text-white w-fit h-fit cursor-pointer" >
     </div>
     <form class="flex flex-col gap-5 items-center" [formGroup]="panelForm" (ngSubmit)="onSubmit()">
         <div class="flex flex-row justify-center items-center w-full px-8 py-5 gap-3">

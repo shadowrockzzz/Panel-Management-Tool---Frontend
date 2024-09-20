@@ -119,4 +119,10 @@ export class SampleService {
     return this.http.get<any>(this.baseURL+"filterpanel",{params: params})
   }
 
+  uploadFile(file: any){
+    const formData = new FormData();
+    formData.append("file",file)
+    return this.http.post<any>(this.baseURL+"uploadFile",formData)
+  }
+
 }
