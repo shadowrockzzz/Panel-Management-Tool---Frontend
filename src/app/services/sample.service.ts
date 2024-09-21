@@ -125,4 +125,8 @@ export class SampleService {
     return this.http.post<any>(this.baseURL+"uploadFile",formData)
   }
 
+  getTAs(){
+    return this.http.get<any>(this.baseURL+"gettas")
+  }
+
 }

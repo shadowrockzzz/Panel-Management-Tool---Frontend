@@ -48,8 +48,36 @@
         Comments
     </p>
 </div>
+<div *ngIf="userType=='admin'" class="flex flex-row justify-end px-4 py-1">
+    <p>Filter Selection: </p> &nbsp; &nbsp;
+    <select (change)="assignDropdownChange()" [(ngModel)]="assigneeFilter">
+        <option value="all">
+            All
+        </option>
+        <option value="assigned">
+            Assigned
+        </option>
+        <option value="unassigned">
+            Unassigned
+        </option>
+    </select>
+</div>
 <div class="mx-2 top-3 relative h-full flex flex-col gap-2">
-    <div *ngFor="let slot of slots" class="flex flex-row py-4 rounded-md relative  border-2 border-blue-400">
+    <div *ngIf="userType=='admin'" class="flex flex-row justify-between px-5 py-1">
+        <input class="inline-block" (click)="checkAllSlots()" type="checkbox" id="multiCheck">
+        <div class="inline-block flex justify-center gap-10">
+            <select class="border-black border-2 box-shadow" [(ngModel)]="selectedTAtoAssign" class="mx-4 px-4">
+                <option *ngFor="let TA of TAList" [ngValue]="TA['userName']">
+                    {{TA['userName']}}
+                </option>
+            </select>
+            <input class="px-4 py-2 rounded-md bg-blue-600 text-white" (click)="assignToTA()" type="button" value="Assign">
+        </div>
+    </div>
+    <div *ngFor="let slot of slots; let i = index" class="flex flex-row py-4 rounded-md relative  border-2 border-blue-400">
+        <div *ngIf="userType=='admin'" class="relative top-1 left-4">
+            <input [(ngModel)]="slot.slotSelection" type="checkbox" >
+        </div>
         <div class="w-3/12 flex justify-center items-center">
             <input [disabled]="!editMode" [(ngModel)]="slot.start" class="flex inline-block justify-center align-center border-2 border-blue-600 px-2 rounded-md" type="datetime-local">
         </div>

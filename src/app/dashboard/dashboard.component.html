@@ -3,7 +3,7 @@
     <fa-icon (click)="logOut()" class="fa-3x text-white fa-light cursor-pointer" [icon]="faArrowRightFromBracket"></fa-icon>
 </div>
 <div class="flex flex-wrap gap-20 py-10 mx-auto my-auto w-3/5 mx-auto relative flex justify-center items-center">
-    <div (click)="navigate('panel')" class="h-80 text-blue-600 active:text-white w-80 bg-white hover:bg-blue-200 border-2 border-blue-600 active:bg-blue-600 flex justify-center items-center flex-col gap-2 py-3 cursor-pointer rounded-full transition duration-300 ease-in-out">
+    <div *ngIf="userType=='admin'" (click)="navigate('panel')" class="h-80 text-blue-600 active:text-white w-80 bg-white hover:bg-blue-200 border-2 border-blue-600 active:bg-blue-600 flex justify-center items-center flex-col gap-2 py-3 cursor-pointer rounded-full transition duration-300 ease-in-out">
         <fa-icon class="fa-5x fa-light" [icon]="faPlus"></fa-icon>
         <p class="text-medium text-xl">Add Panel</p>
     </div>
@@ -15,7 +15,7 @@
         <fa-icon class="fa-5x fa-light" [icon]="faCalendar"></fa-icon>
         <p class="text-medium text-xl">Add Panel Slots</p>
     </div>
-    <div  *ngIf="userType!='panel'" (click)="navigate('view')" class="h-80 text-blue-600 active:text-white w-80 bg-white hover:bg-blue-200 border-2 border-blue-600 active:bg-blue-600 flex justify-center items-center flex-col gap-2 py-3 cursor-pointer rounded-full transition duration-300 ease-in-out">
+    <div *ngIf="userType=='admin'" (click)="navigate('view')" class="h-80 text-blue-600 active:text-white w-80 bg-white hover:bg-blue-200 border-2 border-blue-600 active:bg-blue-600 flex justify-center items-center flex-col gap-2 py-3 cursor-pointer rounded-full transition duration-300 ease-in-out">
         <fa-icon class="fa-5x fa-light" [icon]="faList"></fa-icon>
         <p class="text-medium text-xl">View and Book Panel Slots</p>
     </div>

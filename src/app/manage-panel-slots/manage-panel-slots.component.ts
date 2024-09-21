@@ -25,9 +25,11 @@ export class ManagePanelSlotsComponent {
   endDate: any = this.formatDateTimeToString(new Date())
 
   userName: any = sessionStorage.getItem('User Name');
+  userType:string = ""
+  assigneeFilter = "all"
 
-  slots: {start: any, end: any, status: String, bookedBy: String, comments: String, id:any, reviewedBy:String}[] = [];
-
+  slots: {slotSelection:Boolean, start: any, end: any, status: String, bookedBy: String, comments: String, id:any, reviewedBy:String,AssignedTAID:any, slotAssignedToTA:any}[] = [];
+  slotsTempSave: {slotSelection:Boolean, start: any, end: any, status: String, bookedBy: String, comments: String, id:any, reviewedBy:String,AssignedTAID:any, slotAssignedToTA:any}[] = [];
   constructor(private location: Location, private router: Router, private service: SampleService, private route: ActivatedRoute){
     try {
       this.route.queryParams.subscribe((data)=>{
@@ -76,13 +78,16 @@ export class ManagePanelSlotsComponent {
 
   addNewSlot(){
     this.slots.push({
+      slotSelection: false,
       start: "",
       end : "",
       status:"available",
       bookedBy: "-",
       comments: "",
       id:null,
-      reviewedBy: ""
+      reviewedBy: "",
+      AssignedTAID: "",
+      slotAssignedToTA: ""
     })
   }
 
@@ -182,13 +187,16 @@ export class ManagePanelSlotsComponent {
           console.log(data)
           for (let item in data){
             this.slots.push({
+              slotSelection: false,
               start:this.formatDate(data[item].start),
               end : this.formatDate(data[item].end),
               status: data[item].status,
               bookedBy: data[item].bookedBy,
               comments: data[item].comments,
               id: data[item]._id,
-              reviewedBy: data[item].reviewedBy
+              reviewedBy: data[item].reviewedBy,
+              AssignedTAID: data[item].AssignedTAID,
+              slotAssignedToTA: data[item].slotAssignedToTA
             })
           }
           console.log(this.slots)
@@ -201,6 +209,16 @@ export class ManagePanelSlotsComponent {
   }
 
   ngOnInit(){
+    const realUser = sessionStorage.getItem("User Name")
+    if(realUser){
+      this.service.getPanelData(realUser).subscribe((data)=>{
+        this.userType = data.role
+      },(err)=>{
+        console.error(err)
+      })
+    }
+
+    this.getTAs()
 
     // this.service.getAllSlots(this.startDate, this.endDate).subscribe((data)=>{
     //   try{
@@ -239,18 +257,26 @@ export class ManagePanelSlotsComponent {
     //     console.error(err)
     //   }
     // })
+    
+    this.allSlotsAndPanelData()
+    
+  }
 
+  allSlotsAndPanelData(){
     this.service.getSlotsByPanelandDates(this.startDate, this.endDate, this.userName).subscribe((data)=>{
       try{
         for (let item in data){
           this.slots.push({
+            slotSelection: data[item].slotAssignedToTA,
             start:this.formatDate(data[item].start),
             end : this.formatDate(data[item].end),
             status: data[item].status,
             bookedBy: data[item].bookedBy,
             comments: data[item].comments,
             id: data[item]._id,
-            reviewedBy: data[item].reviewedBy
+            reviewedBy: data[item].reviewedBy,
+            AssignedTAID: data[item].AssignedTAID,
+            slotAssignedToTA: data[item].slotAssignedToTA
           })
         }
       }
@@ -273,14 +299,116 @@ export class ManagePanelSlotsComponent {
     })
   }
 
-
-
   goBack(){
     this.location.back()
   }
 
   goToHome(){
     this.router.navigateByUrl('/dashboard')
+  }
+
+  TAList = []
+
+  getTAs(){
+    this.service.getTAs().subscribe((data)=>{
+      this.TAList = data
+    },(err)=>{
+      console.error(err)
+    }
+  )
+  }
+
+  selectedTAtoAssign:String = ""
+
+  assignToTA(){
+    this.slots.forEach((data:any)=>{
+      data.AssignedTAID = this.selectedTAtoAssign
+      data.slotAssignedToTA = true
+  
+      this.service.updateSlots(data).subscribe((data)=>{
+        console.log("updated")
+      })
+    })
+  }
+
+  checkAllSlots(){
+    this.slots.forEach((slot)=>{
+      slot.slotSelection = true
+    })
+  }
+
+  assignDropdownChange(){
+    this.service.getSlotsByPanelandDates(this.startDate, this.endDate, this.userName).subscribe((slot)=>{
+      this.slots = []
+      if (this.assigneeFilter=="all"){
+        try{
+          for (let item in slot){
+            this.slots.push({
+              slotSelection: slot[item].slotAssignedToTA? true : false,
+              start:this.formatDate(slot[item].start),
+              end : this.formatDate(slot[item].end),
+              status: slot[item].status,
+              bookedBy: slot[item].bookedBy,
+              comments: slot[item].comments,
+              id: slot[item]._id,
+              reviewedBy: slot[item].reviewedBy,
+              AssignedTAID: slot[item].AssignedTAID,
+              slotAssignedToTA: slot[item].slotAssignedToTA
+            })
+          }
+        }
+        catch(err){
+          console.error(err)
+        }
+      }
+      else if (this.assigneeFilter=="assigned"){
+        try{
+          for (let item in slot){
+            if (slot[item].slotAssignedToTA==true){
+              this.slots.push({
+                slotSelection: slot[item].slotAssignedToTA? true : false,
+                start:this.formatDate(slot[item].start),
+                end : this.formatDate(slot[item].end),
+                status: slot[item].status,
+                bookedBy: slot[item].bookedBy,
+                comments: slot[item].comments,
+                id: slot[item]._id,
+                reviewedBy: slot[item].reviewedBy,
+                AssignedTAID: slot[item].AssignedTAID,
+                slotAssignedToTA: slot[item].slotAssignedToTA
+              })
+            }
+          }
+        }
+        catch(err){
+          console.error(err)
+        }
+      }
+      else{
+        try{
+          for (let item in slot){
+            if (slot[item].slotAssignedToTA==false){
+              this.slots.push({
+                slotSelection: slot[item].slotAssignedToTA? true : false,
+                start:this.formatDate(slot[item].start),
+                end : this.formatDate(slot[item].end),
+                status: slot[item].status,
+                bookedBy: slot[item].bookedBy,
+                comments: slot[item].comments,
+                id: slot[item]._id,
+                reviewedBy: slot[item].reviewedBy,
+                AssignedTAID: slot[item].AssignedTAID,
+                slotAssignedToTA: slot[item].slotAssignedToTA
+              })
+            }
+          }
+        }
+        catch(err){
+          console.error(err)
+        }
+      }
+        
+    })
   }
 
 }

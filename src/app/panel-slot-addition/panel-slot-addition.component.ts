@@ -20,7 +20,7 @@ export class PanelSlotAdditionComponent implements OnInit {
   skillSet: String = "";
   userName: any = sessionStorage.getItem("User Name")
 
-  slots: {start: any, end: any, status: String, bookedBy: String, comments: String, id:any, reviewedBy: String}[] = [];
+  slots: {start: any, end: any, status: String, bookedBy: String, comments: String, id:any, reviewedBy: String, AssignedTAID: String, slotAssignedToTA:Boolean}[] = [];
 
   constructor(private location: Location, private router: Router, private service: SampleService){
     this.service.getPanelData(this.userName).subscribe((data)=>{
@@ -75,7 +75,9 @@ export class PanelSlotAdditionComponent implements OnInit {
             bookedBy: data[slot].bookedBy,
             comments: data[slot].comments,
             id: data[slot]._id,
-            reviewedBy: ""
+            reviewedBy: "",
+            AssignedTAID: "",
+            slotAssignedToTA: false
           })
         }
       })
@@ -161,7 +163,7 @@ export class PanelSlotAdditionComponent implements OnInit {
   }
 
   slotAddition(){
-    this.slots.push({"start":"0000-00-00T00:00:00", "end": "0000-00-00T00:00:00",status: "available", bookedBy: "-", comments: "", id:null, reviewedBy: ""})
+    this.slots.push({"start":"0000-00-00T00:00:00", "end": "0000-00-00T00:00:00",status: "available", bookedBy: "-", comments: "", id:null, reviewedBy: "", AssignedTAID: "", slotAssignedToTA: false})
   }
 
   goBack(){
