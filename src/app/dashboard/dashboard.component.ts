@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { faArrowRightFromBracket, faCalendar, faCoffee, faList, faMagnifyingGlass, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightFromBracket, faCalendar, faCoffee, faList, faMagnifyingGlass, faPlus, faUser } from '@fortawesome/free-solid-svg-icons';
 import { SampleService } from '../services/sample.service';
 
 @Component({
@@ -13,6 +13,7 @@ export class DashboardComponent {
   faMagnifyingGlass = faMagnifyingGlass;
   faCalendar = faCalendar;
   faList = faList
+  faUser = faUser;
   faArrowRightFromBracket = faArrowRightFromBracket;
   userType:string = ""
 
@@ -21,9 +22,9 @@ export class DashboardComponent {
   }
 
   ngOnInit(){
-    const userName = sessionStorage.getItem("User Name")
-    if(userName){
-      this.userService.getPanelData(userName).subscribe((data)=>{
+    const userId = sessionStorage.getItem("User Id")
+    if(userId){
+      this.userService.getPanelData(userId).subscribe((data)=>{
         this.userType = data.role
       },(err)=>{
         console.error(err)
@@ -38,6 +39,7 @@ export class DashboardComponent {
   logOut= ()=>{
     sessionStorage.removeItem('User Name')
     sessionStorage.removeItem('Panel Token')
+    sessionStorage.removeItem('User Id')
     this.router.navigateByUrl('/')
   }
 

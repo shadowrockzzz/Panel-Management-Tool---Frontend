@@ -12,6 +12,7 @@ import { PanelSlotAdditionComponent } from './panel-slot-addition/panel-slot-add
 import { PanelViewComponent } from './panel-view/panel-view.component';
 import { ManagePanelSlotsComponent } from './manage-panel-slots/manage-panel-slots.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
     PanelSetupComponent,
     PanelSlotAdditionComponent,
     PanelViewComponent,
-    ManagePanelSlotsComponent
+    ManagePanelSlotsComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -19,7 +19,7 @@ export class SignInPageComponent {
 
   ngOnInit(){
     this.myForm = this.fb.group({
-      userName: ["",Validators.required, Validators.minLength(3)] ,
+      empId: ["",Validators.required, Validators.minLength(3)] ,
       password: ["",Validators.required]
     })
 
@@ -27,7 +27,7 @@ export class SignInPageComponent {
 
   onSubmit() {
     const data = {
-      userName: this.myForm.controls.userName.value,
+      empId: this.myForm.controls.empId.value,
       password: this.myForm.controls.password.value
     };
 
@@ -37,7 +37,8 @@ export class SignInPageComponent {
         this.authService.setToken(response.token)
         // this.storage.setItem("panelToken",response.token)
         sessionStorage.setItem("Panel Token",response.token)
-        sessionStorage.setItem("User Name",data.userName)
+        sessionStorage.setItem("User Name",response.userName)
+        sessionStorage.setItem("User Id", data.empId)
         this.router.navigateByUrl('/dashboard')
         
 

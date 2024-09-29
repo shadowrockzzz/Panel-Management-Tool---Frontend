@@ -13,14 +13,14 @@ export class SampleService {
 
    }
 
-  getPanelData( userName: String) : Observable<any>{
+  getPanelData( empId: String) : Observable<any>{
 
     let queryParams = new HttpParams();
 
-    let value: any = userName
+    let value: any = empId
     let token: any = sessionStorage.getItem("Panel Token")
 
-    queryParams = queryParams.set("userName",value)
+    queryParams = queryParams.set("empId",value)
     queryParams = queryParams.set("token",token)
 
     // console.log(queryParams)
@@ -69,33 +69,33 @@ export class SampleService {
     return this.http.post<any>(this.baseURL+"addslot",data)
   }
 
-  getSlotsByPanel(startDate:Date, userName: String){
+  getSlotsByPanel(startDate:Date, userId: String){
     const startDateInString = startDate.toString()
-    let userNameInString = "";
-    if(userName){
-      userNameInString = userName.toString()
+    let userIdInString = "";
+    if(userId){
+      userIdInString = userId.toString()
     }
 
     let params = new HttpParams();
 
     params = params.set("startDate",startDateInString)
-    params = params.set("userName", userNameInString)
+    params = params.set("userId", userIdInString)
 
     return this.http.get<any>(this.baseURL+"getslotsbypanel",{params: params})
   }
 
-  getSlotsByPanelandDates(startDate:Date, endDate:Date, userName:String){
+  getSlotsByPanelandDates(startDate:Date, endDate:Date, userId:String){
     const startDateInString = startDate.toString()
     const endDateInString = endDate.toString()
-    let userNameInString = "";
-    if(userName){
-      userNameInString = userName.toString()
+    let userIdInString = "";
+    if(userId){
+      userIdInString = userId.toString()
     }
     let params = new HttpParams();
 
     params = params.set("startDate",startDateInString)
     params = params.set("endDate",endDateInString)
-    params = params.set("userName", userNameInString)
+    params = params.set("userId", userIdInString)
 
     return this.http.get<any>(this.baseURL+"getslotsbypanelanddates",{params: params})
   }

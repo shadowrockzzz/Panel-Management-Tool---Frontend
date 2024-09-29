@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faHouse, faArrowLeft, faPenToSquare, faPlus, faFloppyDisk, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faHouse, faArrowLeft, faPenToSquare, faPlus, faFloppyDisk, faArrowRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons';
 import { SampleService } from '../services/sample.service';
 
 @Component({
@@ -17,6 +17,7 @@ export class ManagePanelSlotsComponent {
   faArrowLeft = faArrowLeft;
   faFloppyDisk = faFloppyDisk;
   faArrowRightFromBracket = faArrowRightFromBracket;
+  faUser = faUser;
   editMode: Boolean = false;
   name: String = "";
   band: String = "";
@@ -24,7 +25,7 @@ export class ManagePanelSlotsComponent {
   startDate: any =this.formatDateTimeToString(new Date());
   endDate: any = this.formatDateTimeToString(new Date())
 
-  userName: any = sessionStorage.getItem('User Name');
+  userId: any = sessionStorage.getItem('User Id');
   userType:string = ""
   assigneeFilter = "all"
 
@@ -33,8 +34,8 @@ export class ManagePanelSlotsComponent {
   constructor(private location: Location, private router: Router, private service: SampleService, private route: ActivatedRoute){
     try {
       this.route.queryParams.subscribe((data)=>{
-        if(data['userName']){
-          this.userName = data['userName']
+        if(data['userId']){
+          this.userId = data['userId']
         }
       })
     }
@@ -47,7 +48,7 @@ export class ManagePanelSlotsComponent {
     this.editSlots()
     for (let data in this.slots){
       if(this.slots[data].id){
-        let currentUser = sessionStorage.getItem("User Name")
+        let currentUser = sessionStorage.getItem("User Id")
         if(currentUser){
           this.slots[data].reviewedBy = currentUser
           this.service.updateSlots(this.slots[data]).subscribe((data)=>{
@@ -57,10 +58,10 @@ export class ManagePanelSlotsComponent {
       }else{
         if(this.slots[data].start && this.slots[data].end){
           const item = {...this.slots[data]}
-          const user = sessionStorage.getItem("User Name")
-          if(user && item.bookedBy==="-"){
-            item.bookedBy = user
-            this.slots[data].bookedBy = user
+          const userId = sessionStorage.getItem("User Id")
+          if(userId && item.bookedBy==="-"){
+            item.bookedBy = userId
+            this.slots[data].bookedBy = userId
           }else{
             console.log("Login in again")
           }
@@ -74,6 +75,10 @@ export class ManagePanelSlotsComponent {
         }
       }
     }
+  }
+
+  navigate(page:String){
+    this.router.navigateByUrl('/'+page)
   }
 
   addNewSlot(){
@@ -182,7 +187,7 @@ export class ManagePanelSlotsComponent {
         //   console.log(this.slots)
         // })
 
-        this.service.getSlotsByPanelandDates(this.startDate, this.endDate, this.userName).subscribe((data)=>{
+        this.service.getSlotsByPanelandDates(this.startDate, this.endDate, this.userId).subscribe((data)=>{
           this.slots = []
           console.log(data)
           for (let item in data){
@@ -209,9 +214,9 @@ export class ManagePanelSlotsComponent {
   }
 
   ngOnInit(){
-    const realUser = sessionStorage.getItem("User Name")
-    if(realUser){
-      this.service.getPanelData(realUser).subscribe((data)=>{
+    const realUserId = sessionStorage.getItem("User Id")
+    if(realUserId){
+      this.service.getPanelData(realUserId).subscribe((data)=>{
         this.userType = data.role
       },(err)=>{
         console.error(err)
@@ -263,7 +268,7 @@ export class ManagePanelSlotsComponent {
   }
 
   allSlotsAndPanelData(){
-    this.service.getSlotsByPanelandDates(this.startDate, this.endDate, this.userName).subscribe((data)=>{
+    this.service.getSlotsByPanelandDates(this.startDate, this.endDate, this.userId).subscribe((data)=>{
       try{
         for (let item in data){
           this.slots.push({
@@ -285,7 +290,7 @@ export class ManagePanelSlotsComponent {
       }
     })
     
-    this.service.getPanelData(this.userName).subscribe((data)=>{
+    this.service.getPanelData(this.userId).subscribe((data)=>{
       try{
         if(data){
           this.name = data.userName;
@@ -338,7 +343,7 @@ export class ManagePanelSlotsComponent {
   }
 
   assignDropdownChange(){
-    this.service.getSlotsByPanelandDates(this.startDate, this.endDate, this.userName).subscribe((slot)=>{
+    this.service.getSlotsByPanelandDates(this.startDate, this.endDate,this.userId).subscribe((slot)=>{
       this.slots = []
       if (this.assigneeFilter=="all"){
         try{

@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { faHouse, faArrowLeft, faChevronRight, faMagnifyingGlass, faArrowRightFromBracket, faDownload } from '@fortawesome/free-solid-svg-icons';
+import { faHouse, faArrowLeft, faChevronRight, faMagnifyingGlass, faArrowRightFromBracket, faDownload, faUser } from '@fortawesome/free-solid-svg-icons';
 import { SampleService } from '../services/sample.service';
 import * as xlsx from 'xlsx';
 import {saveAs} from 'file-saver';
@@ -19,6 +19,7 @@ export class PanelViewComponent {
   faChevronRight=faChevronRight;
   faMagnifyingGlass = faMagnifyingGlass;
   faArrowRightFromBracket = faArrowRightFromBracket;
+  faUser = faUser;
   startDate:string = this.formatDate(new Date());
   endDate:string = "";
   name: string="";
@@ -28,9 +29,14 @@ export class PanelViewComponent {
 
   panelList:any = [];
 
+  navigate(page:String){
+    this.router.navigateByUrl('/'+page)
+  }
+
   logOut= ()=>{
     sessionStorage.removeItem('User Name')
     sessionStorage.removeItem('Panel Token')
+    sessionStorage.removeItem('User Id')
     this.router.navigateByUrl('/')
   }
 
@@ -111,9 +117,9 @@ export class PanelViewComponent {
     this.router.navigateByUrl('/dashboard')
   }
 
-  navigateToPanelSlots(userName: String){
+  navigateToPanelSlots(userId: String){
     const params = {
-     "userName": userName
+     "userId": userId
     }
     this.router.navigate(['/manage'],{queryParams: params})
   }

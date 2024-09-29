@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Component, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { faArrowLeft, faArrowRightFromBracket, faHouse } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faArrowRightFromBracket, faHouse, faUser } from '@fortawesome/free-solid-svg-icons';
 import { SampleService } from '../services/sample.service';
 
 @Component({
@@ -17,6 +17,7 @@ export class PanelSetupComponent {
   faHouse = faHouse;
   faArrowLeft = faArrowLeft;
   faArrowRightFromBracket = faArrowRightFromBracket;
+  faUser = faUser;
 
   constructor(private fb: FormBuilder, private location: Location, private router: Router, private service: SampleService, private renderer: Renderer2){
 
@@ -80,6 +81,9 @@ export class PanelSetupComponent {
     this.renderer.removeStyle(document.body,'height')
   }
 
+  navigate(page:String){
+    this.router.navigateByUrl('/'+page)
+  }
 
   logOut= ()=>{
     sessionStorage.removeItem('User Name')

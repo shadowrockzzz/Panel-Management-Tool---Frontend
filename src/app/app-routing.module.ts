@@ -7,6 +7,7 @@ import { PanelSlotAdditionComponent } from './panel-slot-addition/panel-slot-add
 import { PanelViewComponent } from './panel-view/panel-view.component';
 import { ManagePanelSlotsComponent } from './manage-panel-slots/manage-panel-slots.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
   },{
     path:'manage',
     component: ManagePanelSlotsComponent,
+    canActivate: [AuthGuardService]
+  },{
+    path:'profile',
+    component: ProfileComponent,
     canActivate: [AuthGuardService]
   },{
     path:'**',

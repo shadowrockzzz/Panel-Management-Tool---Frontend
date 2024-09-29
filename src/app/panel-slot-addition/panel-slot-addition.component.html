@@ -6,6 +6,7 @@
         <div class="flex flex-row justify-end gap-10 items-center">
             <fa-icon (click)="goToHome()" class="fa-2x text-white fa-light cursor-pointer" [icon]="faHouse"></fa-icon>
             <fa-icon (click)="goBack()" class="fa-2x text-white fa-light cursor-pointer" [icon]="faArrowLeft"></fa-icon>
+            <fa-icon (click)="navigate('profile')" class="fa-2x text-white fa-light cursor-pointer" [icon]="faUser"></fa-icon>
             <fa-icon (click)="logOut()" class="fa-2x text-white fa-light cursor-pointer" [icon]="faArrowRightFromBracket"></fa-icon>
         </div>
     </div>

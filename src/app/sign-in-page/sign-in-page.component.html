@@ -3,8 +3,8 @@
         <form class="flex flex-col gap-10 items-center" [formGroup]="myForm" (ngSubmit)="onSubmit()">
             <p class="text-3xl font-bold">Panel Management Tool</p>
             <label class="flex flex-col gap-5 font-medium text-xl" for="userName">
-                <p>User Name:</p>
-                <input class="border-2 border-black rounded-md px-4 py-1 text-sm" id="userName" formControlName="userName" type="text" minlength="3" required />
+                <p>Employee Id: &nbsp;</p>
+                <input class="border-2 border-black rounded-md px-4 py-1 text-sm" id="userName" formControlName="empId" type="text" minlength="3" required />
             </label>
             <label class="flex gap-5 flex-col font-medium text-xl" for="password">
                 <p>Password:</p>

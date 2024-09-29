@@ -1,0 +1,40 @@
+<div class="h-24 w-full bg-blue-600 text-white flex flex-row justify-between items-center text-2xl text-medium px-10">
+    <div class="flex justify-start text-3xl font-bold items-center">
+        <p>Profile</p>
+    </div>
+    <div class="flex flex-row justify-end gap-10 items-center">
+        <fa-icon (click)="navigate('dashboard')" class="fa-2x text-white fa-light cursor-pointer" [icon]="faHouse"></fa-icon>
+        <fa-icon (click)="goBack()" class="fa-2x text-white fa-light cursor-pointer" [icon]="faArrowLeft"></fa-icon>
+        <fa-icon (click)="navigate('')" class="fa-2x text-white fa-light cursor-pointer" [icon]="faArrowRightFromBracket"></fa-icon>
+    </div>
+</div>
+<div class="flex flex-row px-4 py-2 gap-5">
+    <div class="w-2/5 flex flex-col gap-10">
+        <p>User Name</p>
+        <p>Employer Id</p>
+        <p>Account Name</p>
+        <p>Band</p>
+        <p>City</p>
+        <p>Email Id</p>
+        <p>Level</p>
+        <p>Location</p>
+        <p>Practice</p>
+        <p>Sector</p>
+        <p>Skill Set</p>
+        <p>Sub Practice</p>
+    </div>
+    <div class="w-3/5 flex flex-col gap-10">
+        <p>{{this.panelData.userName}}</p>
+        <p>{{this.panelData.EmpId}}</p>
+        <p>{{this.panelData.accountName}}</p>
+        <p>{{this.panelData.band}}</p>
+        <p>{{this.panelData.city}}</p>
+        <p>{{this.panelData.emailId}}</p>
+        <p>{{this.panelData.level}}</p>
+        <p>{{this.panelData.location}}</p>
+        <p>{{this.panelData.practice}}</p>
+        <p>{{this.panelData.sector}}</p>
+        <p>{{this.panelData.skillSet}}</p>
+        <p>{{this.panelData.subPractice}}</p>
+    </div>
+</div>

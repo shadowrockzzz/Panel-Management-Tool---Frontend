@@ -6,6 +6,7 @@
         <fa-icon (click)="generateExcel(panelList,'Panel List','panel list')" class="fa-2x text-white fa-light cursor-pointer" [icon]="faDownload"></fa-icon>
         <fa-icon (click)="goToHome()" class="fa-2x text-white fa-light cursor-pointer" [icon]="faHouse"></fa-icon>
         <fa-icon (click)="goBack()" class="fa-2x text-white fa-light cursor-pointer" [icon]="faArrowLeft"></fa-icon>
+        <fa-icon (click)="navigate('profile')" class="fa-2x text-white fa-light cursor-pointer" [icon]="faUser"></fa-icon>
         <fa-icon (click)="logOut()" class="fa-2x text-white fa-light cursor-pointer" [icon]="faArrowRightFromBracket"></fa-icon>
     </div>
 </div>
@@ -57,7 +58,7 @@
     </div>
 </div>
 <div class="border-t-2 border-t-blue-600 h-4/5 w-full cursor-pointer">
-    <div (click)="navigateToPanelSlots(panel.userName)" *ngFor="let panel of panelList" class="border-b-2 border-b-blue-600 flex flex-row gap-10 justify-between px-10 py-5 hover:bg-blue-100">
+    <div (click)="navigateToPanelSlots(panel.EmpId)" *ngFor="let panel of panelList" class="border-b-2 border-b-blue-600 flex flex-row gap-10 justify-between px-10 py-5 hover:bg-blue-100">
         <p class="w-fit w-1/5 inline-block flex justify-start items-center">
             {{panel.userName}}
         </p>

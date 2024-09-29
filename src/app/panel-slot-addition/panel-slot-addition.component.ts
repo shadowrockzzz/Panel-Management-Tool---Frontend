@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { faHouse, faArrowLeft, faTrash, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faHouse, faArrowLeft, faTrash, faArrowRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons';
 import { SampleService } from '../services/sample.service';
 
 @Component({
@@ -15,15 +15,16 @@ export class PanelSlotAdditionComponent implements OnInit {
   faArrowLeft = faArrowLeft;
   faTrash = faTrash;
   faArrowRightFromBracket = faArrowRightFromBracket;
+  faUser = faUser;
   name: String = "";
   band: String = "";
   skillSet: String = "";
-  userName: any = sessionStorage.getItem("User Name")
+  userId: any = sessionStorage.getItem("User Id")
 
   slots: {start: any, end: any, status: String, bookedBy: String, comments: String, id:any, reviewedBy: String, AssignedTAID: String, slotAssignedToTA:Boolean}[] = [];
 
   constructor(private location: Location, private router: Router, private service: SampleService){
-    this.service.getPanelData(this.userName).subscribe((data)=>{
+    this.service.getPanelData(this.userId).subscribe((data)=>{
       try{
         if(data){
           this.name = data.userName;
@@ -37,15 +38,19 @@ export class PanelSlotAdditionComponent implements OnInit {
     })
   }
 
+  navigate(page:String){
+    this.router.navigateByUrl('/'+page)
+  }
 
   logOut= ()=>{
     sessionStorage.removeItem('User Name')
     sessionStorage.removeItem('Panel Token')
+    sessionStorage.removeItem("User Id")
     this.router.navigateByUrl('/')
   }
 
   ngOnInit(): void {
-    this.service.getPanelData(this.userName).subscribe((data)=>{
+    this.service.getPanelData(this.userId).subscribe((data)=>{
       try{
         if(data){
           this.name = data.userName;
@@ -61,12 +66,12 @@ export class PanelSlotAdditionComponent implements OnInit {
   }
 
   getSlots(){
-    let userName = sessionStorage.getItem("User Name")
-    if(userName){
+    let userId = sessionStorage.getItem("User Id")
+    if(userId){
       const date1 = new Date()
       const date = new Date(date1.getFullYear(), date1.getMonth(),date1.getDate())
       console.log(date)
-      this.service.getSlotsByPanel(date, userName).subscribe((data)=>{
+      this.service.getSlotsByPanel(date, userId).subscribe((data)=>{
         for (let slot in data){
           this.slots.push({
             start: this.formatDate(data[slot].start.toString()),
@@ -112,9 +117,9 @@ export class PanelSlotAdditionComponent implements OnInit {
         promises.push(promise1)
       }
       else{
-        let user = sessionStorage.getItem("User Name")
-        if(user){
-          slot.bookedBy = user
+        let userId = sessionStorage.getItem("User Id")
+        if(userId){
+          slot.bookedBy = userId
           const promise1 = this.service.addSlot(slot).subscribe((data)=>{
             console.log(data)
           })
@@ -149,6 +154,18 @@ export class PanelSlotAdditionComponent implements OnInit {
   updateStartTime(index: number, event: Event): void {
     const target = event.target as HTMLInputElement;
     this.slots[index].start = target.value;
+    const startTime = new Date(target.value)
+    
+    startTime.setMinutes(startTime.getMinutes() + 45);
+
+    // Format the end time to 'YYYY-MM-DDTHH:MM'
+    const endYear = startTime.getFullYear();
+    const endMonth = String(startTime.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+    const endDate = String(startTime.getDate()).padStart(2, '0');
+    const endHours = String(startTime.getHours()).padStart(2, '0');
+    const endMinutes = String(startTime.getMinutes()).padStart(2, '0');
+
+    this.slots[index].end = `${endYear}-${endMonth}-${endDate}T${endHours}:${endMinutes}`;
   }
 
   // Update the end time in the timeSlotArray
